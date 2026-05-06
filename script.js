@@ -30,16 +30,16 @@ function calculatePayment() {
   const annualRate = Number(rateInput.value);
   const months = Number(termInput.value) * 12;
   const monthlyRate = annualRate / 100 / 12;
+
   const payment = monthlyRate === 0
     ? principal / months
-    : principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+    : principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) /
+      (Math.pow(1 + monthlyRate, months) - 1);
 
   amountValue.textContent = formatMoney(principal);
   rateValue.textContent = `${annualRate.toFixed(2)}%`;
   paymentValue.textContent = `${formatMoney(payment)}/mo`;
 }
-
-
 
 window.addEventListener("scroll", elevateHeader, { passive: true });
 elevateHeader();
@@ -49,6 +49,7 @@ if (hero) {
     const rect = hero.getBoundingClientRect();
     const x = ((event.clientX - rect.left) / rect.width) * 100;
     const y = ((event.clientY - rect.top) / rect.height) * 100;
+
     hero.style.setProperty("--mx", `${x}%`);
     hero.style.setProperty("--my", `${y}%`);
   });
@@ -68,7 +69,6 @@ reveals.forEach((item) => observer.observe(item));
 document.querySelectorAll("#loanAmount, #interestRate, #loanTerm").forEach((control) => {
   control.addEventListener("input", calculatePayment);
 });
-
 
 window.addEventListener("load", () => {
   calculatePayment();

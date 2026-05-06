@@ -208,12 +208,11 @@
   }
 </style>
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-  <script defer src="script.js"></script>
 </head>
 <body>
   <header class="site-header">
     <a class="brand" href="#top">
-      <img src="assets/clear-modern-logo.png" alt="Clear Modern Mortgage">
+      <span>Clear Modern Mortgage</span>
     </a>
     <nav>
       <a href="#about">About</a>
@@ -248,7 +247,6 @@
         </div>
 
         <aside class="profile-card">
-          <img class="portrait" src="assets/chris-gramly.png" alt="Chris Gramly">
           <h2>Chris Gramly</h2>
           <p>Loan Officer</p>
           <p class="nmls">NMLS: 1984074</p>
@@ -337,5 +335,39 @@
     <p>Chris Gramly, Loan Officer | Clear Modern Mortgage</p>
     <p>© 2026 American Pacific Mortgage Corporation. All loans are subject to underwriting approval. Not available in New York.</p>
   </footer>
+<script>
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+
+  const loanAmount = document.getElementById("loanAmount");
+  const interestRate = document.getElementById("interestRate");
+  const loanTerm = document.getElementById("loanTerm");
+  const paymentValue = document.getElementById("paymentValue");
+
+  function calculatePayment() {
+    if (!loanAmount || !interestRate || !loanTerm || !paymentValue) return;
+
+    const principal = Number(loanAmount.value);
+    const annualRate = Number(interestRate.value) / 100;
+    const monthlyRate = annualRate / 12;
+    const months = Number(loanTerm.value) * 12;
+
+    const payment =
+      principal *
+      (monthlyRate * Math.pow(1 + monthlyRate, months)) /
+      (Math.pow(1 + monthlyRate, months) - 1);
+
+    paymentValue.textContent =
+      "$" + Math.round(payment).toLocaleString() + "/mo";
+  }
+
+  if (loanAmount && interestRate && loanTerm) {
+    loanAmount.addEventListener("input", calculatePayment);
+    interestRate.addEventListener("input", calculatePayment);
+    loanTerm.addEventListener("change", calculatePayment);
+    calculatePayment();
+  }
+</script>
 </body>
 </html>

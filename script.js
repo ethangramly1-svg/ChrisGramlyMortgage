@@ -39,17 +39,7 @@ function calculatePayment() {
   paymentValue.textContent = `${formatMoney(payment)}/mo`;
 }
 
-function prepareEmail(event) {
-  event.preventDefault();
-  const form = event.currentTarget;
-  const data = new FormData(form);
-  const subject = encodeURIComponent(`Mortgage question from ${data.get("name")}`);
-  const body = encodeURIComponent(
-    `Name: ${data.get("name")}\nEmail: ${data.get("email")}\nGoal: ${data.get("goal")}\n\nMessage:\n${data.get("message")}`
-  );
 
-  window.location.href = `mailto:chris.gramly@clearmtg.com?subject=${subject}&body=${body}`;
-}
 
 window.addEventListener("scroll", elevateHeader, { passive: true });
 elevateHeader();
@@ -79,7 +69,6 @@ document.querySelectorAll("#loanAmount, #interestRate, #loanTerm").forEach((cont
   control.addEventListener("input", calculatePayment);
 });
 
-document.getElementById("contactForm")?.addEventListener("submit", prepareEmail);
 
 window.addEventListener("load", () => {
   calculatePayment();

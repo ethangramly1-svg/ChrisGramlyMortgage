@@ -5,214 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Chris Gramly | Clear Modern Mortgage</title>
   <meta name="description" content="Chris Gramly, Loan Officer with Clear Modern Mortgage, helps buyers and homeowners in CA and NV explore purchase, refinance, and home financing options.">
-  <style>
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f7fb;
-    color: #10243e;
-  }
-
-  .site-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 8%;
-    background: white;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-
-  .brand {
-    font-weight: 800;
-    font-size: 22px;
-    color: #10243e;
-    text-decoration: none;
-  }
-
-  nav a {
-    margin-left: 20px;
-    color: #10243e;
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  .hero {
-    padding: 90px 8%;
-    background: linear-gradient(135deg, #10243e, #1f6f9f);
-    color: white;
-  }
-
-  .hero-content {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 40px;
-    align-items: center;
-  }
-
-  h1 {
-    font-size: 58px;
-    margin: 10px 0;
-  }
-
-  h2 {
-    font-size: 34px;
-    margin-top: 0;
-  }
-
-  .eyebrow {
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: bold;
-    color: #65d6ff;
-  }
-
-  .role {
-    font-size: 22px;
-    font-weight: bold;
-  }
-
-  .button {
-    display: inline-block;
-    padding: 14px 22px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-right: 12px;
-    margin-top: 18px;
-  }
-
-  .primary {
-    background: #65d6ff;
-    color: #10243e;
-  }
-
-  .secondary {
-    background: white;
-    color: #10243e;
-  }
-
-  .profile-card,
-  .info-card,
-  article,
-  .calculator {
-    background: white;
-    color: #10243e;
-    padding: 28px;
-    border-radius: 18px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
-  }
-
-  .portrait {
-    width: 100%;
-    max-width: 220px;
-    border-radius: 50%;
-    display: block;
-    margin: 0 auto 20px;
-  }
-
-  .quick-links {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
-    padding: 22px 8%;
-    background: #eaf3f8;
-    flex-wrap: wrap;
-  }
-
-  .quick-links a {
-    color: #10243e;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  .section {
-    padding: 70px 8%;
-  }
-
-  .split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 36px;
-    align-items: center;
-  }
-
-  .grid,
-  .resource-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 28px;
-  }
-
-  .resource-grid a {
-    background: white;
-    padding: 24px;
-    border-radius: 14px;
-    text-decoration: none;
-    color: #10243e;
-    font-weight: bold;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  }
-
-  .calculator label {
-    display: block;
-    margin: 18px 0;
-    font-weight: bold;
-  }
-
-  .calculator input,
-  .calculator select {
-    width: 100%;
-    margin-top: 8px;
-  }
-
-  #paymentValue {
-    display: block;
-    font-size: 32px;
-    margin-top: 20px;
-    color: #1f6f9f;
-  }
-
-  .contact {
-    background: #10243e;
-    color: white;
-    text-align: center;
-  }
-
-  footer {
-    padding: 30px 8%;
-    background: #07111f;
-    color: white;
-    text-align: center;
-    font-size: 14px;
-  }
-
-  @media (max-width: 800px) {
-    .hero-content,
-    .split,
-    .grid,
-    .resource-grid {
-      grid-template-columns: 1fr;
-    }
-
-    nav {
-      display: none;
-    }
-
-    h1 {
-      font-size: 42px;
-    }
-  }
-</style>
+  <link rel="stylesheet" href="styles.css">
   <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="script.js"></script>
 </head>
 <body>
   <header class="site-header">
     <a class="brand" href="#top">
-      <span>Clear Modern Mortgage</span>
+      <img src="assets/clear-modern-logo.png" alt="Clear Modern Mortgage">
     </a>
     <nav>
       <a href="#about">About</a>
@@ -247,6 +47,7 @@
         </div>
 
         <aside class="profile-card">
+          <img class="portrait" src="assets/chris-gramly.png" alt="Chris Gramly">
           <h2>Chris Gramly</h2>
           <p>Loan Officer</p>
           <p class="nmls">NMLS: 1984074</p>
@@ -335,39 +136,5 @@
     <p>Chris Gramly, Loan Officer | Clear Modern Mortgage</p>
     <p>© 2026 American Pacific Mortgage Corporation. All loans are subject to underwriting approval. Not available in New York.</p>
   </footer>
-<script>
-  if (window.lucide) {
-    lucide.createIcons();
-  }
-
-  const loanAmount = document.getElementById("loanAmount");
-  const interestRate = document.getElementById("interestRate");
-  const loanTerm = document.getElementById("loanTerm");
-  const paymentValue = document.getElementById("paymentValue");
-
-  function calculatePayment() {
-    if (!loanAmount || !interestRate || !loanTerm || !paymentValue) return;
-
-    const principal = Number(loanAmount.value);
-    const annualRate = Number(interestRate.value) / 100;
-    const monthlyRate = annualRate / 12;
-    const months = Number(loanTerm.value) * 12;
-
-    const payment =
-      principal *
-      (monthlyRate * Math.pow(1 + monthlyRate, months)) /
-      (Math.pow(1 + monthlyRate, months) - 1);
-
-    paymentValue.textContent =
-      "$" + Math.round(payment).toLocaleString() + "/mo";
-  }
-
-  if (loanAmount && interestRate && loanTerm) {
-    loanAmount.addEventListener("input", calculatePayment);
-    interestRate.addEventListener("input", calculatePayment);
-    loanTerm.addEventListener("change", calculatePayment);
-    calculatePayment();
-  }
-</script>
 </body>
 </html>

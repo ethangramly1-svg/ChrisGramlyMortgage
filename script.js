@@ -22,9 +22,7 @@ function calculatePayment() {
   const rateValue = document.getElementById("interestRateValue");
   const paymentValue = document.getElementById("paymentValue");
 
-  if (!amountInput || !rateInput || !termInput || !amountValue || !rateValue || !paymentValue) {
-    return;
-  }
+  if (!amountInput || !rateInput || !termInput || !amountValue || !rateValue || !paymentValue) return;
 
   const principal = Number(amountInput.value);
   const annualRate = Number(rateInput.value);
@@ -39,6 +37,39 @@ function calculatePayment() {
   amountValue.textContent = formatMoney(principal);
   rateValue.textContent = `${annualRate.toFixed(2)}%`;
   paymentValue.textContent = `${formatMoney(payment)}/mo`;
+}
+
+async function sendContactForm(event) {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+  const button = form.querySelector("button[type='submit']");
+  const originalText = button.innerHTML;
+
+  button.disabled = true;
+  button.innerHTML = "Sending...";
+
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: new FormData(form),
+      headers: {
+        "Accept": "application/json"
+      }
+    });
+
+    if (response.ok) {
+      window.location.href = "thank-you.html";
+    } else {
+      button.disabled = false;
+      button.innerHTML = originalText;
+      alert("Something went wrong. Please call Chris directly at (702) 767-4072.");
+    }
+  } catch {
+    button.disabled = false;
+    button.innerHTML = originalText;
+    alert("Something went wrong. Please call Chris directly at (702) 767-4072.");
+  }
 }
 
 window.addEventListener("scroll", elevateHeader, { passive: true });
@@ -69,6 +100,8 @@ reveals.forEach((item) => observer.observe(item));
 document.querySelectorAll("#loanAmount, #interestRate, #loanTerm").forEach((control) => {
   control.addEventListener("input", calculatePayment);
 });
+
+document.getElementById("contactForm")?.addEventListener("submit", sendContactForm);
 
 window.addEventListener("load", () => {
   calculatePayment();

@@ -31,12 +31,10 @@ function calculatePayment() {
   const months = Number(termInput.value) * 12;
   const monthlyRate = annualRate / 100 / 12;
 
-  const payment =
-    monthlyRate === 0
-      ? principal / months
-      : principal *
-        (monthlyRate * Math.pow(1 + monthlyRate, months)) /
-        (Math.pow(1 + monthlyRate, months) - 1);
+  const payment = monthlyRate === 0
+    ? principal / months
+    : principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) /
+      (Math.pow(1 + monthlyRate, months) - 1);
 
   amountValue.textContent = formatMoney(principal);
   rateValue.textContent = `${annualRate.toFixed(2)}%`;
@@ -57,17 +55,14 @@ if (hero) {
   });
 }
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.16 }
-);
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("is-visible");
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.16 });
 
 reveals.forEach((item) => observer.observe(item));
 

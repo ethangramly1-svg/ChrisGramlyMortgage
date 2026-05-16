@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { subscribeScroll, smoothstep, clamp01 } from "../../lib/scroll";
+import { subscribeScroll, clamp01 } from "../../lib/scroll";
 import { sceneSkyLocalProgress } from "../../lib/pageBounds";
 
 /**
@@ -15,10 +15,14 @@ import { sceneSkyLocalProgress } from "../../lib/pageBounds";
  *   0.60 → 0.70: subline fades in
  *   0.70 → 0.95: scroll cue appears
  *   0.95 → 1.00: everything starts to fade out (scene release)
+ *
+ * The overlay is also visibility:hidden when scrolled past Scene 1
+ * so it can't bleed onto the About section below.
  */
 export default function HeroOverlay() {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
+  const [inScene, setInScene] = useState(true);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -31,11 +35,8 @@ export default function HeroOverlay() {
 
     const tl = gsap.timeline({ paused: true, defaults: { ease: "power2.out" } });
 
-    // 0 → 0.10: nothing visible
-    // 0.10 → 0.15: pre fades in
     tl.fromTo(pre, { opacity: 0, y: 8 }, { opacity: 0.65, y: 0, duration: 0.05 }, 0.10);
 
-    // 0.15 → 0.30: words reveal with subtle scale + opacity
     if (words.length) {
       tl.fromTo(
         words,
@@ -45,15 +46,12 @@ export default function HeroOverlay() {
       );
     }
 
-    // 0.60 → 0.70: subline
     tl.fromTo(sub, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.10 }, 0.60);
 
-    // 0.70 → 0.95: cue
     if (cue) {
       tl.fromTo(cue, { opacity: 0 }, { opacity: 1, duration: 0.10 }, 0.70);
     }
 
-    // 0.95 → 1.00: fade copy as scene releases
     tl.to([pre, ...Array.from(words), sub, cue].filter(Boolean), {
       opacity: 0,
       duration: 0.05,
@@ -65,6 +63,8 @@ export default function HeroOverlay() {
     const unsub = subscribeScroll(({ scrollY, vh }) => {
       const local = sceneSkyLocalProgress(scrollY, vh);
       tl.progress(clamp01(local));
+      // Hide the overlay completely once the scene has released
+      setInScene(local < 1);
     });
 
     return () => {
@@ -73,9 +73,13 @@ export default function HeroOverlay() {
     };
   }, []);
 
+  const hidden: React.CSSProperties = inScene
+    ? {}
+    : { visibility: "hidden", opacity: 0 };
+
   return (
     <>
-      <div className="hero-overlay" ref={rootRef} aria-hidden="false">
+      <div className="hero-overlay" ref={rootRef} style={hidden} aria-hidden={!inScene}>
         <div className="hero-copy">
           <p className="hero-pre">Clear Modern Mortgage</p>
           <h1 className="hero-headline">
@@ -96,7 +100,7 @@ export default function HeroOverlay() {
         </div>
       </div>
 
-      <div className="hero-cue" aria-hidden="true">
+      <div className="hero-cue" style={hidden} aria-hidden="true">
         Scroll to begin
         <span className="arrow">↓</span>
       </div>

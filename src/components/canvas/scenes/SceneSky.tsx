@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
-import { Stars } from "@react-three/drei";
+import { Stars, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import { easeInOutCubic, getScroll, smoothstep } from "../../../lib/scroll";
 import { sceneSkyLocalProgress } from "../../../lib/pageBounds";
 import { palette } from "../../../lib/palette";
+
+const TOWER_URL = `${import.meta.env.BASE_URL}models/tower.glb`;
+useGLTF.preload(TOWER_URL);
 
 /** Procedural soft-cloud texture (radial fall-off) — generated on the
  *  client, no asset fetch, no CORS issues. */
@@ -26,6 +29,33 @@ function makeCloudTexture(): THREE.CanvasTexture {
 }
 
 type CloudSpec = { x: number; y: number; z: number; w: number; h: number; rot: number; opacity: number };
+
+/** Hero tower — Blender-generated luxury condo tower. */
+function HeroTower({ position, scale = 1, opacity = 1 }: { position: [number, number, number]; scale?: number; opacity?: number }) {
+  const { scene } = useGLTF(TOWER_URL);
+  // Clone so each instance has independent transforms but shares geometry
+  const clone = useMemo(() => scene.clone(), [scene]);
+
+  useEffect(() => {
+    clone.traverse((obj) => {
+      if ((obj as THREE.Mesh).isMesh) {
+        const mesh = obj as THREE.Mesh;
+        // Allow per-instance opacity by cloning material on transparent instances
+        if (opacity < 1) {
+          const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+          mesh.material = mats.map((m) => {
+            const cm = (m as THREE.MeshStandardMaterial).clone();
+            cm.transparent = true;
+            cm.opacity = opacity;
+            return cm;
+          });
+        }
+      }
+    });
+  }, [clone, opacity]);
+
+  return <primitive object={clone} position={position} scale={scale} />;
+}
 
 /**
  * Scene 1 — Sky intro / hero.
@@ -245,15 +275,17 @@ export default function SceneSky() {
         0.35 + smoothstep(0.6, 1.0, localRaw) * 0.45;
     }
 
-    // Skyline fade-in
+    // Skyline fade-in — only affect direct procedural meshes; the
+    // tower models below are GLTF primitives and self-manage opacity.
     if (skylineRef.current) {
       const v = smoothstep(0.45, 0.85, localRaw);
-      skylineRef.current.children.forEach((mesh) => {
-        const m = (mesh as THREE.Mesh).material as THREE.Material;
-        if ("opacity" in m) {
-          (m as THREE.MeshStandardMaterial).transparent = true;
-          (m as THREE.MeshStandardMaterial).opacity = v;
-        }
+      skylineRef.current.children.forEach((child) => {
+        if (!(child as THREE.Mesh).isMesh) return;
+        const m = (child as THREE.Mesh).material as THREE.Material | undefined;
+        if (!m || !("opacity" in m)) return;
+        const std = m as THREE.MeshStandardMaterial;
+        std.transparent = true;
+        std.opacity = v;
       });
     }
   });
@@ -302,6 +334,7 @@ export default function SceneSky() {
 
       {/* Skyline silhouette */}
       <group ref={skylineRef}>
+        {/* Procedural background buildings — the city behind the hero */}
         {skyline.buildings.map((b, i) => (
           <mesh
             key={`b-${i}`}
@@ -320,6 +353,12 @@ export default function SceneSky() {
             <planeGeometry args={[0.6, 0.6]} />
           </mesh>
         ))}
+
+        {/* Real Blender tower — centerpiece + two flanking */}
+        <HeroTower position={[-2, 0, -90]} scale={1.0} />
+        <HeroTower position={[18, 0, -118]} scale={0.85} opacity={0.95} />
+        <HeroTower position={[-26, 0, -130]} scale={0.7} opacity={0.85} />
+
         {/* Subtle horizon ground plane to anchor the skyline */}
         <mesh position={[0, -0.5, -150]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[900, 900]} />

@@ -28,26 +28,12 @@ export default function App() {
         {/* Scene 1 occupies the first 100vh — this spacer reserves it */}
         <div id="top" className="hero-spacer" aria-hidden="true" />
 
-        <main style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10vh", paddingBottom: "10vh" }}>
-          <div className="glass-panel" style={{ width: "90%", maxWidth: "1000px" }}>
-            <About />
-          </div>
-
-          <div className="glass-panel" style={{ width: "90%", maxWidth: "1200px" }}>
-            <Purchase />
-          </div>
-
-          <div className="glass-panel" style={{ width: "90%", maxWidth: "1200px" }}>
-            <Refinance />
-          </div>
-
-          <div className="glass-panel" style={{ width: "90%", maxWidth: "1000px" }}>
-            <Resources />
-          </div>
-
-          <div className="glass-panel" style={{ width: "90%", maxWidth: "1000px" }}>
-            <Contact />
-          </div>
+        <main>
+          <About />
+          <Purchase />
+          <Refinance />
+          <Resources />
+          <Contact />
         </main>
 
         <Footer />

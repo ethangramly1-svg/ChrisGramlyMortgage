@@ -11,19 +11,9 @@
     <meta property="og:type" content="website">
     <meta property="og:image" content="assets/chris-gramly.png">
     <link rel="icon" href="assets/chris-gramly.png">
-    <link rel="preload" as="image" href="assets/home-financing-hero.png">
     <link rel="stylesheet" href="styles.css">
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
-        }
-      }
-    </script>
-
-    <script type="module" src="script.js"></script>
+    <script defer src="script.js"></script>
 
     <script type="application/ld+json">
       {
@@ -58,16 +48,6 @@
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <div class="scroll-progress" aria-hidden="true"><span></span></div>
-    <div class="cursor-aura" aria-hidden="true"></div>
-    <div class="cursor-dot" aria-hidden="true"></div>
-
-    <div class="aurora" aria-hidden="true">
-      <span class="aurora-blob a"></span>
-      <span class="aurora-blob b"></span>
-      <span class="aurora-blob c"></span>
-    </div>
-
     <header class="site-header" data-elevate>
       <a class="brand" href="#top" aria-label="Chris Gramly home">
         <img src="assets/clear-modern-logo.png" alt="Clear Modern Mortgage">
@@ -83,53 +63,35 @@
     </header>
 
     <main id="main">
-      <section id="top" class="hero spotlight" data-parallax-scope>
-        <div class="hero-media" aria-hidden="true" data-parallax-speed="0.18">
+      <section id="top" class="hero spotlight">
+        <div class="hero-media" aria-hidden="true">
           <img src="assets/home-financing-hero.png" alt="">
         </div>
 
-        <canvas id="hero-canvas" class="hero-canvas" aria-hidden="true"></canvas>
-
-        <div class="hero-grid" aria-hidden="true"></div>
-        <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-        <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-
-        <div class="hero-shell" data-parallax-speed="0.04">
-          <div class="hero-copy reveal" data-tilt data-tilt-strength="6">
-            <p class="eyebrow">
-              <span class="eyebrow-pulse" aria-hidden="true"></span>
-              Clear Modern Mortgage
-            </p>
-            <h1 class="hero-title" data-split>Chris Gramly</h1>
+        <div class="hero-shell">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">Clear Modern Mortgage</p>
+            <h1>Chris Gramly</h1>
             <p class="hero-role">Loan Officer licensed in CA and NV</p>
             <p class="hero-text">
               Mortgage guidance for buying, refinancing, selling, or building a home, with a clear path from first conversation to closing.
             </p>
 
             <div class="hero-actions">
-              <a class="button primary magnetic" data-magnetic href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly/apply-now" target="_blank" rel="noopener">
-                <span class="button-shine" aria-hidden="true"></span>
+              <a class="button primary" href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly/apply-now" target="_blank" rel="noopener">
                 <i data-lucide="file-check-2" aria-hidden="true"></i>
-                <span>Apply Now</span>
+                Apply Now
               </a>
 
-              <a class="button secondary magnetic" data-magnetic href="tel:+17027674072">
+              <a class="button secondary" href="tel:+17027674072">
                 <i data-lucide="phone" aria-hidden="true"></i>
-                <span>Call Chris</span>
+                Call Chris
               </a>
             </div>
-
-            <ul class="hero-meta" aria-label="Quick facts">
-              <li><i data-lucide="shield-check" aria-hidden="true"></i> NMLS 1984074</li>
-              <li><i data-lucide="map-pin" aria-hidden="true"></i> CA + NV licensed</li>
-              <li><i data-lucide="sparkles" aria-hidden="true"></i> Clear, modern process</li>
-            </ul>
           </div>
 
-          <aside class="profile-panel reveal glass" aria-label="Chris Gramly profile" data-tilt data-tilt-strength="9">
-            <div class="profile-glow" aria-hidden="true"></div>
+          <aside class="profile-panel reveal" aria-label="Chris Gramly profile">
             <div class="portrait-frame">
-              <span class="portrait-ring" aria-hidden="true"></span>
               <img src="assets/chris-gramly.png" alt="Chris Gramly">
             </div>
 
@@ -140,65 +102,38 @@
             </div>
 
             <div class="profile-links">
-              <a class="magnetic" data-magnetic href="mailto:chris.gramly@clearmtg.com">
+              <a href="mailto:chris.gramly@clearmtg.com">
                 <i data-lucide="mail" aria-hidden="true"></i>
                 Email
               </a>
 
-              <a class="magnetic" data-magnetic href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly" target="_blank" rel="noopener">
+              <a href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly" target="_blank" rel="noopener">
                 <i data-lucide="external-link" aria-hidden="true"></i>
                 Company Profile
               </a>
             </div>
           </aside>
         </div>
-
-        <div class="hero-scroll-cue" aria-hidden="true">
-          <span></span>
-          <p>Scroll</p>
-        </div>
-      </section>
-
-      <section class="marquee-band" aria-hidden="true">
-        <div class="marquee-track">
-          <span><i data-lucide="home" aria-hidden="true"></i> Purchase</span>
-          <span><i data-lucide="refresh-ccw" aria-hidden="true"></i> Refinance</span>
-          <span><i data-lucide="hammer" aria-hidden="true"></i> New construction</span>
-          <span><i data-lucide="key-round" aria-hidden="true"></i> First-time buyers</span>
-          <span><i data-lucide="banknote" aria-hidden="true"></i> Cash-out options</span>
-          <span><i data-lucide="map-pin" aria-hidden="true"></i> CA + NV</span>
-          <span><i data-lucide="home" aria-hidden="true"></i> Purchase</span>
-          <span><i data-lucide="refresh-ccw" aria-hidden="true"></i> Refinance</span>
-          <span><i data-lucide="hammer" aria-hidden="true"></i> New construction</span>
-          <span><i data-lucide="key-round" aria-hidden="true"></i> First-time buyers</span>
-          <span><i data-lucide="banknote" aria-hidden="true"></i> Cash-out options</span>
-          <span><i data-lucide="map-pin" aria-hidden="true"></i> CA + NV</span>
-        </div>
       </section>
 
       <section class="quick-band" aria-label="Quick contact">
-        <a class="magnetic" data-magnetic href="tel:+17027674072">
+        <a href="tel:+17027674072">
           <i data-lucide="phone-call" aria-hidden="true"></i>
           <span>(702) 767-4072</span>
         </a>
 
-        <a class="magnetic" data-magnetic href="mailto:chris.gramly@clearmtg.com">
+        <a href="mailto:chris.gramly@clearmtg.com">
           <i data-lucide="mail" aria-hidden="true"></i>
           <span>chris.gramly@clearmtg.com</span>
         </a>
 
-        <a class="magnetic" data-magnetic href="https://www.clearmodernmortgage.com/" target="_blank" rel="noopener">
+        <a href="https://www.clearmodernmortgage.com/" target="_blank" rel="noopener">
           <i data-lucide="building-2" aria-hidden="true"></i>
           <span>Clear Modern Mortgage</span>
         </a>
       </section>
 
-      <section id="about" class="section about-section" data-parallax-scope>
-        <div class="section-decor" aria-hidden="true">
-          <span class="orbit orbit-a"></span>
-          <span class="orbit orbit-b"></span>
-        </div>
-
+      <section id="about" class="section about-section">
         <div class="section-inner split">
           <div class="section-copy reveal">
             <p class="eyebrow">About Chris</p>
@@ -212,13 +147,13 @@
           </div>
 
           <div class="proof-stack reveal">
-            <div class="proof-card highlight glass-dark" data-tilt data-tilt-strength="8">
+            <div class="proof-card highlight">
               <span>Licensed</span>
               <strong>CA + NV</strong>
               <p>Mortgage guidance for California and Nevada home financing goals.</p>
             </div>
 
-            <div class="proof-card glass" data-tilt data-tilt-strength="8">
+            <div class="proof-card">
               <span>Office</span>
               <strong>Las Vegas</strong>
               <p>8751 W Charleston Blvd #220, Las Vegas, NV 89117</p>
@@ -235,40 +170,30 @@
           </div>
 
           <div class="service-grid">
-            <article class="service-card reveal glass" data-tilt data-tilt-strength="10">
-              <span class="card-glow" aria-hidden="true"></span>
+            <article class="service-card reveal">
               <i data-lucide="badge-check" aria-hidden="true"></i>
               <h3>Pre-approval clarity</h3>
               <p>Understand your range, documentation, and timing before you write an offer.</p>
-              <span class="card-corner" aria-hidden="true"></span>
             </article>
 
-            <article class="service-card reveal glass" data-tilt data-tilt-strength="10">
-              <span class="card-glow" aria-hidden="true"></span>
+            <article class="service-card reveal">
               <i data-lucide="map" aria-hidden="true"></i>
               <h3>Loan path planning</h3>
               <p>Compare available options and choose a path that matches your goals.</p>
-              <span class="card-corner" aria-hidden="true"></span>
             </article>
 
-            <article class="service-card reveal glass" data-tilt data-tilt-strength="10">
-              <span class="card-glow" aria-hidden="true"></span>
+            <article class="service-card reveal">
               <i data-lucide="home" aria-hidden="true"></i>
               <h3>Closing support</h3>
               <p>Move through milestones with clear next steps and steady communication.</p>
-              <span class="card-corner" aria-hidden="true"></span>
             </article>
           </div>
         </div>
       </section>
 
-      <section id="refinance" class="section refinance-section" data-parallax-scope>
-        <div class="section-decor" aria-hidden="true">
-          <span class="orbit orbit-c"></span>
-        </div>
-
+      <section id="refinance" class="section refinance-section">
         <div class="section-inner split reverse">
-          <div class="calculator reveal glass" aria-label="Monthly payment estimator" data-tilt data-tilt-strength="6">
+          <div class="calculator reveal" aria-label="Monthly payment estimator">
             <div class="calc-top">
               <h2>Payment Snapshot</h2>
               <span>Estimate</span>
@@ -307,7 +232,7 @@
               Refinancing may help with rate strategy, monthly payment goals, cash flow, or long-term planning. Chris can help you weigh the numbers and the tradeoffs before you move forward.
             </p>
 
-            <a class="text-link magnetic" data-magnetic href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly" target="_blank" rel="noopener">
+            <a class="text-link" href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly" target="_blank" rel="noopener">
               Visit Chris on Clear Modern Mortgage
               <i data-lucide="arrow-up-right" aria-hidden="true"></i>
             </a>
@@ -323,32 +248,32 @@
           </div>
 
           <div class="resource-grid">
-            <a class="resource-card reveal glass magnetic" data-magnetic data-tilt data-tilt-strength="6" href="https://www.clearmodernmortgage.com/loan-programs" target="_blank" rel="noopener">
+            <a class="resource-card reveal" href="https://www.clearmodernmortgage.com/loan-programs" target="_blank" rel="noopener">
               <i data-lucide="layers-3" aria-hidden="true"></i>
               <span>Loan Programs</span>
             </a>
 
-            <a class="resource-card reveal glass magnetic" data-magnetic data-tilt data-tilt-strength="6" href="https://www.clearmodernmortgage.com/loan-process" target="_blank" rel="noopener">
+            <a class="resource-card reveal" href="https://www.clearmodernmortgage.com/loan-process" target="_blank" rel="noopener">
               <i data-lucide="list-checks" aria-hidden="true"></i>
               <span>Loan Process</span>
             </a>
 
-            <a class="resource-card reveal glass magnetic" data-magnetic data-tilt data-tilt-strength="6" href="https://www.clearmodernmortgage.com/mortgage-basics" target="_blank" rel="noopener">
+            <a class="resource-card reveal" href="https://www.clearmodernmortgage.com/mortgage-basics" target="_blank" rel="noopener">
               <i data-lucide="book-open-check" aria-hidden="true"></i>
               <span>Mortgage Basics</span>
             </a>
 
-            <a class="resource-card reveal glass magnetic" data-magnetic data-tilt data-tilt-strength="6" href="https://www.clearmodernmortgage.com/mortgage-calculators" target="_blank" rel="noopener">
+            <a class="resource-card reveal" href="https://www.clearmodernmortgage.com/mortgage-calculators" target="_blank" rel="noopener">
               <i data-lucide="calculator" aria-hidden="true"></i>
               <span>Calculators</span>
             </a>
 
-            <a class="resource-card reveal glass magnetic" data-magnetic data-tilt data-tilt-strength="6" href="https://www.clearmodernmortgage.com/online-forms" target="_blank" rel="noopener">
+            <a class="resource-card reveal" href="https://www.clearmodernmortgage.com/online-forms" target="_blank" rel="noopener">
               <i data-lucide="clipboard-pen-line" aria-hidden="true"></i>
               <span>Online Forms</span>
             </a>
 
-            <a class="resource-card reveal glass magnetic" data-magnetic data-tilt data-tilt-strength="6" href="https://www.clearmodernmortgage.com/faq" target="_blank" rel="noopener">
+            <a class="resource-card reveal" href="https://www.clearmodernmortgage.com/faq" target="_blank" rel="noopener">
               <i data-lucide="circle-help" aria-hidden="true"></i>
               <span>FAQ</span>
             </a>
@@ -356,12 +281,7 @@
         </div>
       </section>
 
-      <section id="contact" class="section contact-section" data-parallax-scope>
-        <div class="contact-aurora" aria-hidden="true">
-          <span></span>
-          <span></span>
-        </div>
-
+      <section id="contact" class="section contact-section">
         <div class="section-inner contact-layout">
           <div class="contact-copy reveal">
             <p class="eyebrow">Find An Advisor</p>
@@ -388,7 +308,7 @@
             </div>
           </div>
 
-         <form class="contact-form reveal glass" id="contactForm" data-tilt data-tilt-strength="4" action="https://formsubmit.co/ajax/chris.gramly@clearmtg.com" method="POST">
+         <form class="contact-form reveal" id="contactForm" action="https://formsubmit.co/ajax/chris.gramly@clearmtg.com" method="POST">
   <input type="hidden" name="_subject" value="New mortgage website lead for Chris Gramly">
   <input type="hidden" name="_captcha" value="false">
 
@@ -420,10 +340,9 @@
               <textarea name="message" rows="4" required></textarea>
             </label>
 
-            <button class="button primary magnetic" data-magnetic type="submit">
-              <span class="button-shine" aria-hidden="true"></span>
+            <button class="button primary" type="submit">
               <i data-lucide="send" aria-hidden="true"></i>
-              <span>Send Question</span>
+              Send Question
             </button>
           </form>
         </div>

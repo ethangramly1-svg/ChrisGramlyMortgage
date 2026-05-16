@@ -30,19 +30,19 @@ function Gallery() {
   return (
     <group ref={group}>
       {/* First image - Interior */}
-      <DreiImage url="/assets/penthouse-1.png" position={[0, 0, -20]} scale={[24, 14]} transparent opacity={0.9} />
+      <DreiImage url={`${import.meta.env.BASE_URL}assets/penthouse-1.png`} position={[0, 0, -20]} scale={[24, 14]} transparent opacity={0.9} />
       
       {/* Second image - Exterior Dusk */}
-      <DreiImage url="/assets/penthouse-2.jpg" position={[-12, 0, -60]} scale={[20, 12]} rotation={[0, 0.2, 0]} transparent opacity={0.9} />
+      <DreiImage url={`${import.meta.env.BASE_URL}assets/penthouse-2.jpg`} position={[-12, 0, -60]} scale={[20, 12]} rotation={[0, 0.2, 0]} transparent opacity={0.9} />
 
       {/* Third image - Balcony Dusk */}
-      <DreiImage url="/assets/penthouse-3.jpg" position={[12, 0, -100]} scale={[20, 12]} rotation={[0, -0.2, 0]} transparent opacity={0.9} />
+      <DreiImage url={`${import.meta.env.BASE_URL}assets/penthouse-3.jpg`} position={[12, 0, -100]} scale={[20, 12]} rotation={[0, -0.2, 0]} transparent opacity={0.9} />
 
       {/* Fourth image - Aerial City */}
-      <DreiImage url="/assets/penthouse-4.png" position={[0, 5, -140]} scale={[26, 16]} rotation={[0.1, 0, 0]} transparent opacity={0.9} />
+      <DreiImage url={`${import.meta.env.BASE_URL}assets/penthouse-4.png`} position={[0, 5, -140]} scale={[26, 16]} rotation={[0.1, 0, 0]} transparent opacity={0.9} />
 
       {/* Fifth image - Modern Dusk */}
-      <DreiImage url="/assets/penthouse-5.png" position={[0, 0, -180]} scale={[30, 18]} transparent opacity={0.9} />
+      <DreiImage url={`${import.meta.env.BASE_URL}assets/penthouse-5.png`} position={[0, 0, -180]} scale={[30, 18]} transparent opacity={0.9} />
     </group>
   );
 }

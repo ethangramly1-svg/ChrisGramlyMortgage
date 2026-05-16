@@ -195,11 +195,26 @@ export default function SceneSky() {
     { x:  15, y: 158, z: -45, w: 130, h: 48, rot: -0.02, opacity: 0.60 },
     { x:  70, y: 95,  z: -25, w: 70, h: 26, rot:  0.10, opacity: 0.42 }
   ], []);
+  // -------------------------------------------------------------------
+  // Per-frame update — pulls scroll progress, drives everything.
+  // -------------------------------------------------------------------
+  const camStart = useMemo(() => new THREE.Vector3(0, 200, 0), []);
+  const camEnd = useMemo(() => new THREE.Vector3(0, 80, 30), []);
+  const lookStart = useMemo(() => new THREE.Vector3(0, 150, -200), []);
+  const lookEnd = useMemo(() => new THREE.Vector3(0, 30, -150), []);
+  const tmpVec = useMemo(() => new THREE.Vector3(), []);
+  const tmpLook = useMemo(() => new THREE.Vector3(), []);
 
   useFrame((_, delta) => {
     const { scrollY, vh } = getScroll();
     const localRaw = sceneSkyLocalProgress(scrollY, vh);
     const local = easeInOutCubic(localRaw);
+
+    // Camera descends along the rail
+    tmpVec.lerpVectors(camStart, camEnd, local);
+    tmpLook.lerpVectors(lookStart, lookEnd, local);
+    camera.position.copy(tmpVec);
+    camera.lookAt(tmpLook);
 
     if (skyMatRef.current) {
       const u = skyMatRef.current.uniforms.uHorizonStrength;

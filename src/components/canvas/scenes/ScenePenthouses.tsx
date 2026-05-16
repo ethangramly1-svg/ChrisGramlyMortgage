@@ -1,29 +1,18 @@
 import { useRef } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
-import { useScroll, ScrollControls, Scroll, Image as DreiImage, Html } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import { Image as DreiImage } from "@react-three/drei";
 import * as THREE from "three";
-import { palette } from "../../../lib/palette";
+import { getScroll } from "../../../lib/scroll";
 
-// Import existing UI components
-import HeroOverlay from "../../site/HeroOverlay";
-import About from "../../site/About";
-import Purchase from "../../site/Purchase";
-import Refinance from "../../site/Refinance";
-import Resources from "../../site/Resources";
-import Contact from "../../site/Contact";
-import Footer from "../../site/Footer";
 import SceneSky from "./SceneSky";
 
 function Gallery() {
-  const scroll = useScroll();
   const group = useRef<THREE.Group>(null);
   
   useFrame((state, delta) => {
     if (group.current) {
-      // The scroll offset is between 0 and 1
-      const offset = scroll.offset;
-      // Move the entire group along Z to fly through
-      group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, offset * 200, 0.1);
+      const { progress } = getScroll();
+      group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, progress * 200, 0.1);
     }
   });
 
@@ -49,58 +38,12 @@ function Gallery() {
 
 export default function ScenePenthouses() {
   return (
-    <ScrollControls pages={6} damping={0.2}>
+    <>
       {/* 3D background/gallery that moves with scroll */}
       <Gallery />
       
       {/* Keep the sky/particles from Scene 1 in the background */}
       <SceneSky />
-
-      {/* HTML overlay synchronized with scroll pages */}
-      <Scroll html style={{ width: "100vw" }}>
-        
-        {/* Page 0: Hero */}
-        <div style={{ height: "100vh", position: "relative" }}>
-          <HeroOverlay />
-        </div>
-
-        {/* Page 1: About */}
-        <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div className="glass-panel" style={{ width: "90%", maxWidth: "1000px" }}>
-            <About />
-          </div>
-        </div>
-
-        {/* Page 2: Purchase */}
-        <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div className="glass-panel" style={{ width: "90%", maxWidth: "1200px" }}>
-            <Purchase />
-          </div>
-        </div>
-
-        {/* Page 3: Refinance (Calculator) */}
-        <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div className="glass-panel" style={{ width: "90%", maxWidth: "1200px" }}>
-            <Refinance />
-          </div>
-        </div>
-
-        {/* Page 4: Resources */}
-        <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <div className="glass-panel" style={{ width: "90%", maxWidth: "1000px" }}>
-            <Resources />
-          </div>
-        </div>
-
-        {/* Page 5: Contact & Footer */}
-        <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: "10vh" }}>
-          <div className="glass-panel" style={{ width: "90%", maxWidth: "1000px", margin: "0 auto", marginBottom: "80px" }}>
-            <Contact />
-          </div>
-          <Footer />
-        </div>
-
-      </Scroll>
-    </ScrollControls>
+    </>
   );
 }

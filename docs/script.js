@@ -39,9 +39,30 @@ function calculatePayment() {
   paymentValue.textContent = `${formatMoney(payment)}/mo`;
 }
 
-function sendContactForm(event) {
-  const button = event.currentTarget.querySelector("button[type='submit']");
+async function sendContactForm(event) {
+  event.preventDefault();
+  const form = event.currentTarget;
+  const button = form.querySelector("button[type='submit']");
+  const originalText = button.innerHTML;
   button.innerHTML = "Sending...";
+
+  try {
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(Object.fromEntries(new FormData(form)))
+    });
+    const data = await response.json().catch(() => ({}));
+    if (response.ok && data.success) {
+      window.location.href = "thank-you.html";
+      return;
+    }
+    button.innerHTML = originalText;
+    alert("We couldn't send that just now. Please call Chris directly at (702) 767-4072 or email chris.gramly@clearmtg.com.");
+  } catch {
+    button.innerHTML = originalText;
+    alert("We couldn't send that just now. Please call Chris directly at (702) 767-4072 or email chris.gramly@clearmtg.com.");
+  }
 }
 
 window.addEventListener("scroll", elevateHeader, { passive: true });

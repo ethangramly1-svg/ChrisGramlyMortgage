@@ -149,38 +149,60 @@ export default function SceneSky() {
   }), []);
 
   // -------------------------------------------------------------------
-  // Procedural skyline silhouette (clustered boxes) — placeholder NYC
+  // Procedural Vegas-style skyline silhouette
+  //   - Mix of low-rise casinos, slim hotel towers, one pyramid (Luxor),
+  //     scattered short blocks (residential / lower strip)
+  //   - Warmer, more saturated window lights than a NYC scene
+  //   - Mountain silhouette plane behind everything
   // -------------------------------------------------------------------
   const skyline = useMemo(() => {
     type Box = { x: number; y: number; z: number; w: number; h: number; d: number };
+    type Pyramid = { x: number; y: number; z: number; base: number; h: number };
     const buildings: Box[] = [];
     const windows: { x: number; y: number; z: number }[] = [];
+    const pyramids: Pyramid[] = [];
 
-    // Two parallax rows: a near band and a far band
+    // PRNG seeded for stable layout
+    let seed = 7;
+    const rand = () => {
+      seed = (seed * 9301 + 49297) % 233280;
+      return seed / 233280;
+    };
+
+    // Each row mixes "low casino" + "slim hotel" archetypes
     const rows = [
-      { z: -100, count: 24, hMin: 10, hMax: 38, spreadX: 220, opacity: 1.0 },
-      { z: -150, count: 18, hMin: 18, hMax: 60, spreadX: 280, opacity: 0.85 },
-      { z: -200, count: 14, hMin: 28, hMax: 80, spreadX: 340, opacity: 0.7 }
+      { z: -90,  count: 22, lowH: [4, 14],  tallH: [22, 42], spreadX: 230 },
+      { z: -130, count: 16, lowH: [6, 18],  tallH: [28, 56], spreadX: 280 },
+      { z: -180, count: 12, lowH: [10, 22], tallH: [34, 72], spreadX: 340 }
     ];
 
     rows.forEach((row, ri) => {
       for (let i = 0; i < row.count; i++) {
-        const w = 4 + Math.random() * 7;
-        const h = row.hMin + Math.random() * (row.hMax - row.hMin);
-        const d = 4 + Math.random() * 6;
-        const x = -row.spreadX / 2 + (i / (row.count - 1)) * row.spreadX + (Math.random() - 0.5) * 6;
+        const isTall = rand() < 0.42;
+        let w, h, d;
+        if (isTall) {
+          // Slim hotel tower (Strat / Encore / Cosmopolitan vibe)
+          w = 2.5 + rand() * 3.5;
+          h = row.tallH[0] + rand() * (row.tallH[1] - row.tallH[0]);
+          d = 2.5 + rand() * 3.5;
+        } else {
+          // Wide low casino (Bellagio / Caesars / Mirage podium)
+          w = 6 + rand() * 9;
+          h = row.lowH[0] + rand() * (row.lowH[1] - row.lowH[0]);
+          d = 4 + rand() * 6;
+        }
+        const x = -row.spreadX / 2 + (i / (row.count - 1)) * row.spreadX + (rand() - 0.5) * 6;
         const y = h / 2;
-        const z = row.z + (Math.random() - 0.5) * 18;
+        const z = row.z + (rand() - 0.5) * 18;
         buildings.push({ x, y, z, w, h, d });
 
-        // Sprinkle a few lit windows on the front face
-        const winCols = Math.max(2, Math.floor(w / 1.4));
-        const winRows = Math.max(3, Math.floor(h / 2.4));
+        // Window grid — Vegas glows brighter
+        const winCols = Math.max(2, Math.floor(w / 1.2));
+        const winRows = Math.max(2, Math.floor(h / 1.8));
+        const skipRate = ri === 0 ? 0.18 : ri === 1 ? 0.32 : 0.55;
         for (let cy = 0; cy < winRows; cy++) {
           for (let cx = 0; cx < winCols; cx++) {
-            if (ri === 0 && Math.random() < 0.4) continue;
-            if (ri === 1 && Math.random() < 0.6) continue;
-            if (ri === 2 && Math.random() < 0.78) continue;
+            if (rand() < skipRate) continue;
             windows.push({
               x: x - w / 2 + (cx + 0.5) * (w / winCols),
               y: 0.6 + cy * (h / winRows),
@@ -191,19 +213,77 @@ export default function SceneSky() {
       }
     });
 
-    return { buildings, windows };
+    // Two signature pyramids — a big front one (Luxor-style) and a
+    // smaller back one so the silhouette reads Vegas at a glance
+    pyramids.push({ x: 18, y: 0, z: -78, base: 28, h: 22 });
+    pyramids.push({ x: -42, y: 0, z: -150, base: 18, h: 14 });
+
+    return { buildings, windows, pyramids };
+  }, []);
+
+  // Neon strip accents — a handful of saturated colored window lights
+  // sprinkled into the front rows so the skyline reads Vegas, not NYC.
+  const neonAccents = useMemo(() => {
+    type Neon = { x: number; y: number; z: number; color: string };
+    const out: Neon[] = [];
+    let s = 19;
+    const r = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+    const palette = ["#ff5070", "#5cc8ff", "#c560ff", "#ffaf3a"];
+    for (let i = 0; i < 28; i++) {
+      out.push({
+        x: -100 + r() * 200,
+        y: 1.5 + r() * 18,
+        z: -85 + r() * 12,
+        color: palette[Math.floor(r() * palette.length)]
+      });
+    }
+    return out;
   }, []);
 
   const skylineMat = useMemo(() => new THREE.MeshStandardMaterial({
-    color: 0x070b18,
+    color: 0x0b0c1a,
     metalness: 0.15,
     roughness: 0.95
   }), []);
   const windowMat = useMemo(() => new THREE.MeshBasicMaterial({
-    color: new THREE.Color("#e6b35e"),
+    color: new THREE.Color("#f0c46a"),
+    transparent: true,
+    opacity: 0.92
+  }), []);
+  const pyramidMat = useMemo(() => new THREE.MeshStandardMaterial({
+    color: 0x0a0c18,
+    metalness: 0.45,
+    roughness: 0.4,
+    emissive: new THREE.Color("#1a1308"),
+    emissiveIntensity: 0.45
+  }), []);
+  const mountainMat = useMemo(() => new THREE.MeshStandardMaterial({
+    color: 0x141422,
+    metalness: 0.0,
+    roughness: 1.0,
     transparent: true,
     opacity: 0.85
   }), []);
+  const desertGroundMat = useMemo(() => new THREE.MeshStandardMaterial({
+    color: 0x0c0c14,
+    roughness: 1.0
+  }), []);
+
+  // Procedural mountain silhouette ridge — sample heights along a line
+  const mountainRidge = useMemo(() => {
+    const ridge: { x: number; h: number; w: number }[] = [];
+    let s = 13;
+    const r = () => { s = (s * 9301 + 49297) % 233280; return s / 233280; };
+    const COUNT = 22;
+    const SPREAD = 520;
+    for (let i = 0; i < COUNT; i++) {
+      const x = -SPREAD / 2 + (i / (COUNT - 1)) * SPREAD;
+      const h = 22 + r() * 36;
+      const w = 28 + r() * 22;
+      ridge.push({ x, h, w });
+    }
+    return ridge;
+  }, []);
 
   // -------------------------------------------------------------------
   // Procedural clouds (no CDN texture)
@@ -298,10 +378,17 @@ export default function SceneSky() {
       particleMaterial.dispose();
       skylineMat.dispose();
       windowMat.dispose();
+      pyramidMat.dispose();
+      mountainMat.dispose();
+      desertGroundMat.dispose();
       cloudMaterial.dispose();
       cloudTexture.dispose();
     };
-  }, [skyMaterial, particleGeometry, particleMaterial, skylineMat, windowMat, cloudMaterial, cloudTexture]);
+  }, [
+    skyMaterial, particleGeometry, particleMaterial,
+    skylineMat, windowMat, pyramidMat, mountainMat, desertGroundMat,
+    cloudMaterial, cloudTexture
+  ]);
 
   return (
     <group>
@@ -332,9 +419,20 @@ export default function SceneSky() {
       {/* Gold dust */}
       <points ref={particlesRef} geometry={particleGeometry} material={particleMaterial} />
 
-      {/* Skyline silhouette */}
+      {/* Skyline silhouette — Las Vegas Strip */}
       <group ref={skylineRef}>
-        {/* Procedural background buildings — the city behind the hero */}
+        {/* Mountain silhouettes behind everything (Spring Mountains) */}
+        {mountainRidge.map((m, i) => (
+          <mesh
+            key={`mt-${i}`}
+            position={[m.x, m.h / 2 - 2, -260]}
+            material={mountainMat}
+          >
+            <coneGeometry args={[m.w / 2, m.h, 4]} />
+          </mesh>
+        ))}
+
+        {/* Procedural Vegas buildings — mix of low casinos + slim hotel towers */}
         {skyline.buildings.map((b, i) => (
           <mesh
             key={`b-${i}`}
@@ -344,25 +442,46 @@ export default function SceneSky() {
             <boxGeometry args={[b.w, b.h, b.d]} />
           </mesh>
         ))}
+
+        {/* Signature Luxor-style pyramid */}
+        {skyline.pyramids.map((p, i) => (
+          <mesh
+            key={`py-${i}`}
+            position={[p.x, p.h / 2, p.z]}
+            material={pyramidMat}
+            rotation={[0, Math.PI / 4, 0]}
+          >
+            <coneGeometry args={[p.base / 2, p.h, 4]} />
+          </mesh>
+        ))}
+
+        {/* Lit windows — Vegas glows warmer + brighter */}
         {skyline.windows.map((w, i) => (
           <mesh
             key={`w-${i}`}
             position={[w.x, w.y, w.z]}
             material={windowMat}
           >
-            <planeGeometry args={[0.6, 0.6]} />
+            <planeGeometry args={[0.55, 0.55]} />
           </mesh>
         ))}
 
-        {/* Real Blender tower — centerpiece + two flanking */}
-        <HeroTower position={[-2, 0, -90]} scale={1.0} />
-        <HeroTower position={[18, 0, -118]} scale={0.85} opacity={0.95} />
-        <HeroTower position={[-26, 0, -130]} scale={0.7} opacity={0.85} />
+        {/* Neon strip accents — saturated colored lights sprinkled in */}
+        {neonAccents.map((n, i) => (
+          <mesh key={`n-${i}`} position={[n.x, n.y, n.z]}>
+            <planeGeometry args={[0.85, 0.85]} />
+            <meshBasicMaterial color={n.color} transparent opacity={0.9} blending={THREE.AdditiveBlending} depthWrite={false} />
+          </mesh>
+        ))}
 
-        {/* Subtle horizon ground plane to anchor the skyline */}
-        <mesh position={[0, -0.5, -150]} rotation={[-Math.PI / 2, 0, 0]}>
+        {/* Real Blender tower — featured property + two flanking */}
+        <HeroTower position={[-3, 0, -85]} scale={0.95} />
+        <HeroTower position={[14, 0, -115]} scale={0.78} opacity={0.95} />
+        <HeroTower position={[-24, 0, -130]} scale={0.65} opacity={0.85} />
+
+        {/* Desert valley floor */}
+        <mesh position={[0, -0.5, -150]} rotation={[-Math.PI / 2, 0, 0]} material={desertGroundMat}>
           <planeGeometry args={[900, 900]} />
-          <meshStandardMaterial color="#040711" roughness={1} />
         </mesh>
       </group>
 

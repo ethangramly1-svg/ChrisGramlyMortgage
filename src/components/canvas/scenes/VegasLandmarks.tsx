@@ -28,6 +28,11 @@ export default function VegasLandmarks() {
       <ParisBalloon   position={[10,  10, -55]} scale={1.15} />
       <HighRoller     position={[42,  0, -110]} scale={1.2} />
       <MGMTower       position={[36,  0, -150]} />
+      {/* Back-row named landmarks — give the deep skyline real shapes */}
+      <Stratosphere     position={[-58, 0, -175]} />
+      <MandalayBay      position={[52,  0, -185]} />
+      <AriaCluster      position={[-12, 0, -200]} />
+      <MirageVolcano    position={[20,  0, -135]} />
     </group>
   );
 }
@@ -772,6 +777,242 @@ function HighRoller({ position, scale = 1 }: { position: [number, number, number
           </mesh>
         ))}
       </group>
+    </group>
+  );
+}
+
+/* ========================================================================
+   Stratosphere — slim center pole, observation pod / saucer, tall antenna
+   ====================================================================== */
+function Stratosphere({ position }: { position: [number, number, number] }) {
+  const concreteMat = useMemo(() => new THREE.MeshStandardMaterial({
+    color: 0x8c7e64,
+    metalness: 0.15,
+    roughness: 0.65,
+    emissive: new THREE.Color("#3a2e1c"),
+    emissiveIntensity: 0.6
+  }), []);
+  const saucerMat = useMemo(() => new THREE.MeshStandardMaterial({
+    color: 0x5a5260,
+    metalness: 0.75,
+    roughness: 0.3,
+    emissive: new THREE.Color("#3a3640"),
+    emissiveIntensity: 0.8
+  }), []);
+  const saucerLightMat = useMemo(() => new THREE.MeshBasicMaterial({
+    color: "#ffd680", transparent: true, opacity: 0.95
+  }), []);
+  const antennaMat = useMemo(() => new THREE.MeshStandardMaterial({
+    color: 0x4a4a52,
+    metalness: 0.8,
+    roughness: 0.25
+  }), []);
+
+  return (
+    <group position={position}>
+      {/* Squat base */}
+      <mesh position={[0, 4, 0]} material={concreteMat}>
+        <boxGeometry args={[14, 8, 12]} />
+      </mesh>
+      {/* Slim mid pole — three slim concrete legs converging */}
+      {[[2, 2], [-2, 2], [0, -2.6]].map(([x, z], i) => (
+        <mesh key={`leg-${i}`} position={[x, 28, z]} material={concreteMat}>
+          <cylinderGeometry args={[0.55, 0.75, 48, 8]} />
+        </mesh>
+      ))}
+      {/* Saucer observation deck */}
+      <mesh position={[0, 53, 0]} material={saucerMat}>
+        <cylinderGeometry args={[4.5, 5.5, 1.4, 16]} />
+      </mesh>
+      <mesh position={[0, 54.7, 0]} material={saucerMat}>
+        <cylinderGeometry args={[3.8, 4.5, 1.0, 16]} />
+      </mesh>
+      <mesh position={[0, 56.2, 0]} material={saucerMat}>
+        <coneGeometry args={[3.2, 1.8, 16]} />
+      </mesh>
+      {/* Saucer rim lights */}
+      {Array.from({ length: 12 }).map((_, i) => {
+        const a = (i / 12) * Math.PI * 2;
+        return (
+          <mesh
+            key={`sl-${i}`}
+            position={[Math.cos(a) * 5.0, 53.5, Math.sin(a) * 5.0]}
+            material={saucerLightMat}
+          >
+            <planeGeometry args={[0.5, 0.5]} />
+          </mesh>
+        );
+      })}
+      {/* Tall antenna */}
+      <mesh position={[0, 64, 0]} material={antennaMat}>
+        <cylinderGeometry args={[0.1, 0.2, 14, 8]} />
+      </mesh>
+      <mesh position={[0, 71.5, 0]}>
+        <sphereGeometry args={[0.32, 8, 8]} />
+        <meshBasicMaterial color="#ff5a5a" />
+      </mesh>
+    </group>
+  );
+}
+
+/* ========================================================================
+   Mandalay Bay — gold curved double tower
+   ====================================================================== */
+function MandalayBay({ position }: { position: [number, number, number] }) {
+  const goldMat = useMemo(() => new THREE.MeshStandardMaterial({
+    color: 0xa4781f,
+    metalness: 0.92,
+    roughness: 0.22,
+    emissive: new THREE.Color("#d49a30"),
+    emissiveIntensity: 1.6
+  }), []);
+  const winMat = useMemo(() => new THREE.MeshBasicMaterial({
+    color: "#ffe590", transparent: true, opacity: 0.95
+  }), []);
+  // A subtle curved Y-shape: a center wing + two curved side wings
+  return (
+    <group position={position}>
+      {/* Center spine */}
+      <mesh position={[0, 21, 0]} material={goldMat}>
+        <boxGeometry args={[6, 42, 7]} />
+      </mesh>
+      {/* Two curved wings via rotated boxes */}
+      <mesh position={[-5, 19, 1]} rotation={[0, 0.5, 0]} material={goldMat}>
+        <boxGeometry args={[4, 38, 5]} />
+      </mesh>
+      <mesh position={[5, 19, 1]} rotation={[0, -0.5, 0]} material={goldMat}>
+        <boxGeometry args={[4, 38, 5]} />
+      </mesh>
+      {/* Window grid (front-facing) */}
+      {Array.from({ length: 16 }).map((_, row) =>
+        Array.from({ length: 4 }).map((__, col) => {
+          if ((row + col) % 4 === 0) return null;
+          return (
+            <mesh
+              key={`mw-${row}-${col}`}
+              position={[(col - 1.5) * 1.4, 4 + row * 2.4, 3.55]}
+              material={winMat}
+            >
+              <planeGeometry args={[0.5, 0.65]} />
+            </mesh>
+          );
+        })
+      )}
+      {/* Crown trim */}
+      <mesh position={[0, 42.3, 0]} material={goldMat}>
+        <boxGeometry args={[15, 0.6, 8]} />
+      </mesh>
+    </group>
+  );
+}
+
+/* ========================================================================
+   Aria / Cosmopolitan — modern dark glass + bronze condo cluster
+   ====================================================================== */
+function AriaCluster({ position }: { position: [number, number, number] }) {
+  const glassMat = useMemo(() => new THREE.MeshStandardMaterial({
+    color: 0x182030,
+    metalness: 0.88,
+    roughness: 0.18,
+    emissive: new THREE.Color("#1c2840"),
+    emissiveIntensity: 0.4
+  }), []);
+  const winMat = useMemo(() => new THREE.MeshBasicMaterial({
+    color: "#aac8ff", transparent: true, opacity: 0.85
+  }), []);
+  const accentMat = useMemo(() => new THREE.MeshStandardMaterial({
+    color: 0x826438,
+    metalness: 0.9,
+    roughness: 0.2,
+    emissive: new THREE.Color("#d49a40"),
+    emissiveIntensity: 1.3
+  }), []);
+  // Three slim towers of slightly different heights, tilted toward each
+  // other in a cluster
+  const towers = [
+    { x: -7, h: 52, rot: 0.10 },
+    { x:  0, h: 60, rot: 0.0 },
+    { x:  7, h: 48, rot: -0.10 }
+  ];
+  return (
+    <group position={position}>
+      {towers.map((t, i) => (
+        <group key={`tw-${i}`} position={[t.x, 0, 0]} rotation={[0, t.rot, 0]}>
+          <mesh position={[0, t.h / 2, 0]} material={glassMat}>
+            <boxGeometry args={[5.5, t.h, 5.5]} />
+          </mesh>
+          {/* Gold accent at top */}
+          <mesh position={[0, t.h - 0.6, 0]} material={accentMat}>
+            <boxGeometry args={[5.8, 1.2, 5.8]} />
+          </mesh>
+          {/* Vertical curtain-wall window strips */}
+          {Array.from({ length: Math.floor(t.h / 2.2) }).map((_, row) =>
+            Array.from({ length: 3 }).map((__, col) => {
+              if (Math.random() < 0.18) return null;
+              return (
+                <mesh
+                  key={`acw-${row}-${col}`}
+                  position={[(col - 1) * 1.6, 3 + row * 2.4, 2.8]}
+                  material={winMat}
+                >
+                  <planeGeometry args={[0.55, 1.4]} />
+                </mesh>
+              );
+            })
+          )}
+        </group>
+      ))}
+    </group>
+  );
+}
+
+/* ========================================================================
+   Mirage volcano — orange glow plume just to suggest the Mirage attraction
+   ====================================================================== */
+function MirageVolcano({ position }: { position: [number, number, number] }) {
+  const rockMat = useMemo(() => new THREE.MeshStandardMaterial({
+    color: 0x251a14,
+    roughness: 0.95,
+    metalness: 0
+  }), []);
+  const plumeRef = useRef<THREE.MeshBasicMaterial>(null);
+  useFrame((state) => {
+    if (plumeRef.current) {
+      const t = state.clock.getElapsedTime();
+      plumeRef.current.opacity = 0.45 + 0.25 * Math.sin(t * 1.4);
+    }
+  });
+  return (
+    <group position={position}>
+      {/* Volcanic cone */}
+      <mesh position={[0, 3, 0]} material={rockMat}>
+        <coneGeometry args={[5.5, 6, 7]} />
+      </mesh>
+      {/* Glowing plume */}
+      <mesh position={[0, 8, 0]}>
+        <coneGeometry args={[2.2, 6, 8, 1, true]} />
+        <meshBasicMaterial
+          ref={plumeRef}
+          color="#ff7a2a"
+          transparent
+          opacity={0.6}
+          side={THREE.DoubleSide}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
+      {/* Inner brighter core */}
+      <mesh position={[0, 7, 0]}>
+        <coneGeometry args={[1.2, 4, 8, 1, true]} />
+        <meshBasicMaterial
+          color="#ffd070"
+          transparent
+          opacity={0.75}
+          side={THREE.DoubleSide}
+          blending={THREE.AdditiveBlending}
+          depthWrite={false}
+        />
+      </mesh>
     </group>
   );
 }

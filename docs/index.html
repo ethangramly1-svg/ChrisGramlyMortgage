@@ -5,30 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chris Gramly | Clear Modern Mortgage</title>
     <meta name="description" content="Chris Gramly, Loan Officer with Clear Modern Mortgage, helps buyers and homeowners in CA and NV explore purchase, refinance, and home financing options.">
-    <meta name="theme-color" content="#0c0f10">
+    <meta name="theme-color" content="#10243e">
     <meta property="og:title" content="Chris Gramly | Clear Modern Mortgage">
     <meta property="og:description" content="Loan Officer licensed in CA and NV. Clear, modern mortgage guidance for purchase and refinance goals.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="assets/chris-gramly.png">
     <link rel="icon" href="assets/chris-gramly.png">
-    <link rel="preload" as="image" href="assets/home-financing-hero.png">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="styles.css">
     <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
-        }
-      }
-    </script>
-
-    <script type="module" src="script.js"></script>
+    <script defer src="script.js"></script>
 
     <script type="application/ld+json">
       {
@@ -63,8 +48,6 @@
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <canvas id="tower-canvas" aria-hidden="true"></canvas>
-
     <header class="site-header" data-elevate>
       <a class="brand" href="#top" aria-label="Chris Gramly home">
         <img src="assets/clear-modern-logo.png" alt="Clear Modern Mortgage">
@@ -75,104 +58,132 @@
         <a href="#purchase">Purchase</a>
         <a href="#refinance">Refinance</a>
         <a href="#resources">Resources</a>
-        <a href="#contact">Contact</a>
+        <a href="#contact">Find an Advisor</a>
       </nav>
-
-      <a class="apply-btn" href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly/apply-now" target="_blank" rel="noopener">Apply Now</a>
     </header>
 
-    <aside class="floor-nav" aria-label="Section progress">
-      <ol>
-        <li><a href="#top" data-floor="hero"><span class="dot"></span><span class="lbl">Top</span></a></li>
-        <li><a href="#about" data-floor="about"><span class="dot"></span><span class="lbl">28</span></a></li>
-        <li><a href="#purchase" data-floor="purchase"><span class="dot"></span><span class="lbl">21</span></a></li>
-        <li><a href="#refinance" data-floor="refinance"><span class="dot"></span><span class="lbl">14</span></a></li>
-        <li><a href="#resources" data-floor="resources"><span class="dot"></span><span class="lbl">07</span></a></li>
-        <li><a href="#contact" data-floor="contact"><span class="dot"></span><span class="lbl">GF</span></a></li>
-      </ol>
-    </aside>
-
     <main id="main">
-      <section id="top" class="hero">
+      <section id="top" class="hero spotlight">
         <div class="hero-media" aria-hidden="true">
           <img src="assets/home-financing-hero.png" alt="">
         </div>
-        <div class="hero-veil" aria-hidden="true"></div>
 
-        <div class="hero-inner">
-          <p class="eyebrow">Clear Modern Mortgage &nbsp;·&nbsp; Loan Officer &nbsp;·&nbsp; CA + NV</p>
-          <h1>Chris&nbsp;Gramly</h1>
-          <p class="lede">A clear path home. Purchase, refinance, build, or reposition — guided from first conversation to closing.</p>
+        <div class="hero-shell">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">Clear Modern Mortgage</p>
+            <h1>Chris Gramly</h1>
+            <p class="hero-role">Loan Officer licensed in CA and NV</p>
+            <p class="hero-text">
+              Mortgage guidance for buying, refinancing, selling, or building a home, with a clear path from first conversation to closing.
+            </p>
 
-          <div class="hero-actions">
-            <a class="btn primary" href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly/apply-now" target="_blank" rel="noopener">Apply Now</a>
-            <a class="btn ghost" href="tel:+17027674072">Call (702) 767-4072</a>
+            <div class="hero-actions">
+              <a class="button primary" href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly/apply-now" target="_blank" rel="noopener">
+                <i data-lucide="file-check-2" aria-hidden="true"></i>
+                Apply Now
+              </a>
+
+              <a class="button secondary" href="tel:+17027674072">
+                <i data-lucide="phone" aria-hidden="true"></i>
+                Call Chris
+              </a>
+            </div>
           </div>
 
-          <div class="hero-meta">
-            <div><span>NMLS</span><strong>1984074</strong></div>
-            <div><span>Licensed</span><strong>CA &nbsp;·&nbsp; NV</strong></div>
-            <div><span>Office</span><strong>Las Vegas</strong></div>
+          <aside class="profile-panel reveal" aria-label="Chris Gramly profile">
+            <div class="portrait-frame">
+              <img src="assets/chris-gramly.png" alt="Chris Gramly">
+            </div>
+
+            <div class="profile-copy">
+              <p class="profile-name">Chris Gramly</p>
+              <p>Loan Officer</p>
+              <p class="profile-nmls">NMLS: 1984074</p>
+            </div>
+
+            <div class="profile-links">
+              <a href="mailto:chris.gramly@clearmtg.com">
+                <i data-lucide="mail" aria-hidden="true"></i>
+                Email
+              </a>
+
+              <a href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly" target="_blank" rel="noopener">
+                <i data-lucide="external-link" aria-hidden="true"></i>
+                Company Profile
+              </a>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="quick-band" aria-label="Quick contact">
+        <a href="tel:+17027674072">
+          <i data-lucide="phone-call" aria-hidden="true"></i>
+          <span>(702) 767-4072</span>
+        </a>
+
+        <a href="mailto:chris.gramly@clearmtg.com">
+          <i data-lucide="mail" aria-hidden="true"></i>
+          <span>chris.gramly@clearmtg.com</span>
+        </a>
+
+        <a href="https://www.clearmodernmortgage.com/" target="_blank" rel="noopener">
+          <i data-lucide="building-2" aria-hidden="true"></i>
+          <span>Clear Modern Mortgage</span>
+        </a>
+      </section>
+
+      <section id="about" class="section about-section">
+        <div class="section-inner split">
+          <div class="section-copy reveal">
+            <p class="eyebrow">About Chris</p>
+            <h2>Fast answers, clear options, and steady guidance.</h2>
+            <p>
+              Whether you are buying, selling, refinancing, or building your dream home, you have a lot riding on your loan specialist. Market conditions and mortgage programs change frequently, so responsive and accurate guidance matters.
+            </p>
+            <p>
+              Chris brings the expertise and knowledge to help you explore financing options, understand the process, and make the choice that fits you and your family.
+            </p>
+          </div>
+
+          <div class="proof-stack reveal">
+            <div class="proof-card highlight">
+              <span>Licensed</span>
+              <strong>CA + NV</strong>
+              <p>Mortgage guidance for California and Nevada home financing goals.</p>
+            </div>
+
+            <div class="proof-card">
+              <span>Office</span>
+              <strong>Las Vegas</strong>
+              <p>8751 W Charleston Blvd #220, Las Vegas, NV 89117</p>
+            </div>
           </div>
         </div>
-
-        <div class="scroll-cue" aria-hidden="true">
-          <span class="scroll-lbl">Scroll</span>
-          <span class="scroll-line"></span>
-        </div>
       </section>
 
-      <section class="transition" aria-hidden="true">
-        <span class="t-line"></span>
-        <span class="t-label">Approaching Level 28</span>
-        <span class="t-name">The Practice</span>
-      </section>
+      <section id="purchase" class="section purchase-section">
+        <div class="section-inner">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Purchase</p>
+            <h2>Start strong before you shop.</h2>
+          </div>
 
-      <section id="about" class="level" data-level="28">
-        <div class="level-frame">
-          <span class="level-watermark">28</span>
-          <p class="level-tag">Level 28 &nbsp;·&nbsp; About</p>
-          <h2>Fast answers. Clear options. Steady guidance.</h2>
-          <p class="body">
-            Whether you are buying, selling, refinancing, or building your dream home, you have a lot riding on your loan specialist. Market conditions and mortgage programs change frequently, so responsive and accurate guidance matters.
-          </p>
-          <p class="body">
-            Chris brings the expertise and knowledge to help you explore financing options, understand the process, and choose the path that fits you and your family.
-          </p>
-
-          <dl class="spec">
-            <div><dt>Coverage</dt><dd>California &nbsp;·&nbsp; Nevada</dd></div>
-            <div><dt>Discipline</dt><dd>Purchase, refinance, construction</dd></div>
-            <div><dt>Approach</dt><dd>Plain language, no surprises</dd></div>
-          </dl>
-        </div>
-      </section>
-
-      <section class="transition" aria-hidden="true">
-        <span class="t-line"></span>
-        <span class="t-label">Descending to Level 21</span>
-        <span class="t-name">Buying a Home</span>
-      </section>
-
-      <section id="purchase" class="level right" data-level="21">
-        <div class="level-frame">
-          <span class="level-watermark">21</span>
-          <p class="level-tag">Level 21 &nbsp;·&nbsp; Purchase</p>
-          <h2>Start strong before you shop.</h2>
-
-          <div class="step-list">
-            <article>
-              <span class="step-num">01</span>
+          <div class="service-grid">
+            <article class="service-card reveal">
+              <i data-lucide="badge-check" aria-hidden="true"></i>
               <h3>Pre-approval clarity</h3>
               <p>Understand your range, documentation, and timing before you write an offer.</p>
             </article>
-            <article>
-              <span class="step-num">02</span>
+
+            <article class="service-card reveal">
+              <i data-lucide="map" aria-hidden="true"></i>
               <h3>Loan path planning</h3>
               <p>Compare available options and choose a path that matches your goals.</p>
             </article>
-            <article>
-              <span class="step-num">03</span>
+
+            <article class="service-card reveal">
+              <i data-lucide="home" aria-hidden="true"></i>
               <h3>Closing support</h3>
               <p>Move through milestones with clear next steps and steady communication.</p>
             </article>
@@ -180,139 +191,142 @@
         </div>
       </section>
 
-      <section class="transition" aria-hidden="true">
-        <span class="t-line"></span>
-        <span class="t-label">Descending to Level 14</span>
-        <span class="t-name">Refinance Snapshot</span>
-      </section>
-
-      <section id="refinance" class="level" data-level="14">
-        <div class="level-frame wide">
-          <span class="level-watermark">14</span>
-          <p class="level-tag">Level 14 &nbsp;·&nbsp; Refinance</p>
-          <h2>Look at the full picture before changing your loan.</h2>
-          <p class="body">
-            Refinancing may help with rate strategy, monthly payment goals, cash flow, or long-term planning. Use the snapshot to get a quick feel, then call Chris to weigh the numbers and the tradeoffs.
-          </p>
-
-          <div class="calculator">
-            <div class="calc-head">
-              <span class="calc-tag">Payment Snapshot</span>
-              <span class="calc-note">Estimate only</span>
+      <section id="refinance" class="section refinance-section">
+        <div class="section-inner split reverse">
+          <div class="calculator reveal" aria-label="Monthly payment estimator">
+            <div class="calc-top">
+              <h2>Payment Snapshot</h2>
+              <span>Estimate</span>
             </div>
 
-            <div class="calc-grid">
-              <label>
-                <span class="ctl-label">Loan amount</span>
-                <input id="loanAmount" type="range" min="150000" max="1200000" step="10000" value="520000">
-                <span id="loanAmountValue" class="ctl-value">$520,000</span>
-              </label>
+            <label>
+              Loan amount
+              <input id="loanAmount" type="range" min="150000" max="1200000" step="10000" value="520000">
+            </label>
 
-              <label>
-                <span class="ctl-label">Interest rate</span>
-                <input id="interestRate" type="range" min="3" max="9" step="0.125" value="6.5">
-                <span id="interestRateValue" class="ctl-value">6.50%</span>
-              </label>
+            <label>
+              Interest rate
+              <input id="interestRate" type="range" min="3" max="9" step="0.125" value="6.5">
+            </label>
 
-              <label>
-                <span class="ctl-label">Term</span>
-                <select id="loanTerm">
-                  <option value="30">30 years</option>
-                  <option value="20">20 years</option>
-                  <option value="15">15 years</option>
-                </select>
-                <span class="ctl-value">&nbsp;</span>
-              </label>
-            </div>
+            <label>
+              Term
+              <select id="loanTerm">
+                <option value="30">30 years</option>
+                <option value="20">20 years</option>
+                <option value="15">15 years</option>
+              </select>
+            </label>
 
-            <div class="calc-result">
-              <span class="ctl-label">Estimated monthly payment</span>
+            <div class="calc-output">
+              <span id="loanAmountValue">$520,000</span>
+              <span id="interestRateValue">6.50%</span>
               <strong id="paymentValue">$3,287/mo</strong>
             </div>
           </div>
 
-          <a class="text-link" href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly" target="_blank" rel="noopener">
-            Visit Chris on Clear Modern Mortgage →
-          </a>
+          <div class="section-copy reveal">
+            <p class="eyebrow">Refinance</p>
+            <h2>Look at the full picture before changing your loan.</h2>
+            <p>
+              Refinancing may help with rate strategy, monthly payment goals, cash flow, or long-term planning. Chris can help you weigh the numbers and the tradeoffs before you move forward.
+            </p>
+
+            <a class="text-link" href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly" target="_blank" rel="noopener">
+              Visit Chris on Clear Modern Mortgage
+              <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+            </a>
+          </div>
         </div>
       </section>
 
-      <section class="transition" aria-hidden="true">
-        <span class="t-line"></span>
-        <span class="t-label">Descending to Level 07</span>
-        <span class="t-name">Resources</span>
-      </section>
+      <section id="resources" class="section resource-section">
+        <div class="section-inner">
+          <div class="section-heading reveal">
+            <p class="eyebrow">Resources</p>
+            <h2>Clear next steps for every stage.</h2>
+          </div>
 
-      <section id="resources" class="level right" data-level="07">
-        <div class="level-frame wide">
-          <span class="level-watermark">07</span>
-          <p class="level-tag">Level 07 &nbsp;·&nbsp; Resources</p>
-          <h2>Clear next steps for every stage.</h2>
+          <div class="resource-grid">
+            <a class="resource-card reveal" href="https://www.clearmodernmortgage.com/loan-programs" target="_blank" rel="noopener">
+              <i data-lucide="layers-3" aria-hidden="true"></i>
+              <span>Loan Programs</span>
+            </a>
 
-          <ul class="link-list">
-            <li><a href="https://www.clearmodernmortgage.com/loan-programs" target="_blank" rel="noopener"><span>01</span><strong>Loan Programs</strong><em>Explore options →</em></a></li>
-            <li><a href="https://www.clearmodernmortgage.com/loan-process" target="_blank" rel="noopener"><span>02</span><strong>Loan Process</strong><em>From application to close →</em></a></li>
-            <li><a href="https://www.clearmodernmortgage.com/mortgage-basics" target="_blank" rel="noopener"><span>03</span><strong>Mortgage Basics</strong><em>Terms and fundamentals →</em></a></li>
-            <li><a href="https://www.clearmodernmortgage.com/mortgage-calculators" target="_blank" rel="noopener"><span>04</span><strong>Calculators</strong><em>Run the numbers →</em></a></li>
-            <li><a href="https://www.clearmodernmortgage.com/online-forms" target="_blank" rel="noopener"><span>05</span><strong>Online Forms</strong><em>Documents and applications →</em></a></li>
-            <li><a href="https://www.clearmodernmortgage.com/faq" target="_blank" rel="noopener"><span>06</span><strong>FAQ</strong><em>Common questions →</em></a></li>
-          </ul>
+            <a class="resource-card reveal" href="https://www.clearmodernmortgage.com/loan-process" target="_blank" rel="noopener">
+              <i data-lucide="list-checks" aria-hidden="true"></i>
+              <span>Loan Process</span>
+            </a>
+
+            <a class="resource-card reveal" href="https://www.clearmodernmortgage.com/mortgage-basics" target="_blank" rel="noopener">
+              <i data-lucide="book-open-check" aria-hidden="true"></i>
+              <span>Mortgage Basics</span>
+            </a>
+
+            <a class="resource-card reveal" href="https://www.clearmodernmortgage.com/mortgage-calculators" target="_blank" rel="noopener">
+              <i data-lucide="calculator" aria-hidden="true"></i>
+              <span>Calculators</span>
+            </a>
+
+            <a class="resource-card reveal" href="https://www.clearmodernmortgage.com/online-forms" target="_blank" rel="noopener">
+              <i data-lucide="clipboard-pen-line" aria-hidden="true"></i>
+              <span>Online Forms</span>
+            </a>
+
+            <a class="resource-card reveal" href="https://www.clearmodernmortgage.com/faq" target="_blank" rel="noopener">
+              <i data-lucide="circle-help" aria-hidden="true"></i>
+              <span>FAQ</span>
+            </a>
+          </div>
         </div>
       </section>
 
-      <section class="transition" aria-hidden="true">
-        <span class="t-line"></span>
-        <span class="t-label">Final Level &nbsp;·&nbsp; Ground Floor</span>
-        <span class="t-name">Meet Chris</span>
-      </section>
-
-      <section id="contact" class="level contact-level">
-        <div class="contact-grid">
-          <div class="contact-copy">
-            <span class="level-watermark">GF</span>
-            <p class="level-tag">Ground Floor &nbsp;·&nbsp; Find an Advisor</p>
+      <section id="contact" class="section contact-section">
+        <div class="section-inner contact-layout">
+          <div class="contact-copy reveal">
+            <p class="eyebrow">Find An Advisor</p>
             <h2>Talk with Chris Gramly.</h2>
-            <p class="body">
+            <p>
               After you apply, Chris will call to discuss the details of your loan. You can also reach out anytime by phone or email for personalized service and expert advice.
             </p>
 
-            <div class="profile-card">
-              <div class="profile-photo">
-                <img src="assets/chris-gramly.png" alt="Chris Gramly">
-              </div>
-              <div class="profile-info">
-                <p class="profile-name">Chris Gramly</p>
-                <p class="profile-role">Loan Officer &nbsp;·&nbsp; NMLS 1984074</p>
-                <a class="profile-link" href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly" target="_blank" rel="noopener">Company Profile →</a>
-              </div>
-            </div>
+            <div class="contact-lines">
+              <a href="tel:+17027674072">
+                <i data-lucide="phone" aria-hidden="true"></i>
+                (702) 767-4072
+              </a>
 
-            <dl class="spec">
-              <div><dt>Phone</dt><dd><a href="tel:+17027674072">(702) 767-4072</a></dd></div>
-              <div><dt>Email</dt><dd><a href="mailto:chris.gramly@clearmtg.com">chris.gramly@clearmtg.com</a></dd></div>
-              <div><dt>Office</dt><dd><a href="https://maps.google.com/?q=8751%20W%20Charleston%20Blvd%20%23220%20Las%20Vegas%20NV%2089117" target="_blank" rel="noopener">8751 W Charleston Blvd #220, Las Vegas, NV 89117</a></dd></div>
-            </dl>
+              <a href="mailto:chris.gramly@clearmtg.com">
+                <i data-lucide="mail" aria-hidden="true"></i>
+                chris.gramly@clearmtg.com
+              </a>
+
+              <a href="https://maps.google.com/?q=8751%20W%20Charleston%20Blvd%20%23220%20Las%20Vegas%20NV%2089117" target="_blank" rel="noopener">
+                <i data-lucide="map-pin" aria-hidden="true"></i>
+                8751 W Charleston Blvd #220, Las Vegas, NV 89117
+              </a>
+            </div>
           </div>
 
-          <form class="contact-form" id="contactForm" action="https://formsubmit.co/ajax/chris.gramly@clearmtg.com" method="POST">
+         <form class="contact-form reveal" id="contactForm" action="https://formsubmit.co/ajax/chris.gramly@clearmtg.com" method="POST">
+  <input type="hidden" name="_subject" value="New mortgage website lead for Chris Gramly">
+  <input type="hidden" name="_captcha" value="false">
+
             <input type="hidden" name="_subject" value="New mortgage website lead for Chris Gramly">
-            <input type="hidden" name="_captcha" value="false">
             <input type="hidden" name="_next" value="https://ethangramly1-svg.github.io/ChrisGramlyMortgage/thank-you.html">
 
-            <p class="form-title">Send a question</p>
-
             <label>
-              <span class="ctl-label">Name</span>
+              Name
               <input name="name" autocomplete="name" required>
             </label>
 
             <label>
-              <span class="ctl-label">Email</span>
+              Email
               <input name="email" type="email" autocomplete="email" required>
             </label>
 
             <label>
-              <span class="ctl-label">Goal</span>
+              Goal
               <select name="goal">
                 <option>Buying a home</option>
                 <option>Refinancing</option>
@@ -322,11 +336,14 @@
             </label>
 
             <label>
-              <span class="ctl-label">Message</span>
+              Message
               <textarea name="message" rows="4" required></textarea>
             </label>
 
-            <button class="btn primary" type="submit">Send Question</button>
+            <button class="button primary" type="submit">
+              <i data-lucide="send" aria-hidden="true"></i>
+              Send Question
+            </button>
           </form>
         </div>
       </section>
@@ -334,23 +351,23 @@
 
     <footer class="site-footer">
       <div class="footer-inner">
-        <div class="footer-brand">
+        <div>
           <img class="footer-logo" src="assets/clear-modern-logo.png" alt="Clear Modern Mortgage">
           <p>Chris Gramly, Loan Officer</p>
           <p>Licensed in CA and NV</p>
         </div>
 
         <div>
-          <p class="footer-h">Company</p>
+          <h2>Company</h2>
           <a href="https://www.clearmodernmortgage.com/" target="_blank" rel="noopener">Clear Modern Mortgage</a>
           <a href="https://www.apmortgage.com" target="_blank" rel="noopener">American Pacific Mortgage</a>
         </div>
 
         <div>
-          <p class="footer-h">Contact</p>
+          <h2>Contact</h2>
           <a href="tel:+17027674072">(702) 767-4072</a>
           <a href="mailto:chris.gramly@clearmtg.com">chris.gramly@clearmtg.com</a>
-          <p>8751 W Charleston Blvd #220<br>Las Vegas, NV 89117</p>
+          <p>Clear Modern Mortgage<br>8751 W Charleston Blvd #220<br>Las Vegas, NV 89117</p>
         </div>
       </div>
 

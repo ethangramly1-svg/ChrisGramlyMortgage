@@ -144,3 +144,20 @@ npm run preview  # Serve the build
 
 GitHub Pages source must be set to **"GitHub Actions"** in repo settings.
 The workflow `.github/workflows/pages.yml` builds `/dist` and deploys.
+
+## Review-before-respond discipline
+
+**Always review and test code before sending a response.** Specifically:
+
+- Run `npm run build` after any change in `src/` or `vite.config.ts` —
+  it does `tsc -b && vite build`, catches type errors and build
+  failures. The Stop hook at `.claude/hooks/build-check.sh` enforces
+  this automatically and blocks the response if the build fails.
+- For visual changes (3D scenes, layout, styling), preview the built
+  site headlessly and screenshot every scroll position before declaring
+  done. Don't rely on "the build succeeded" to mean "it looks right."
+- For runtime-sensitive changes (R3F geometry, scroll-bound camera,
+  useFrame loops), open the preview, scroll through every section, and
+  confirm via the CDP diag script that no uncaught exceptions land.
+- Never push or open a PR before the local build is green AND the
+  rendered output matches the user's request.

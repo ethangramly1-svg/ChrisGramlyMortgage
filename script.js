@@ -40,9 +40,7 @@ function calculatePayment() {
 }
 
 function sendContactForm(event) {
-  const form = event.currentTarget;
-  const button = form.querySelector("button[type='submit']");
-  button.disabled = true;
+  const button = event.currentTarget.querySelector("button[type='submit']");
   button.innerHTML = "Sending...";
 }
 

@@ -5,8 +5,8 @@ export const palette = {
   inkSoft:   "#2d3a52",
   brass:     "#c8a047",
   brassDeep: "#9a7830",
-  skyTop:    "#050816",
-  skyBottom: "#0d1530",
+  skyTop:    "#040a26",
+  skyBottom: "#0b2b66",
   ambient:   "#1a2440",
   moon:      "#f0c674",
   groundDim: "#1a1410"

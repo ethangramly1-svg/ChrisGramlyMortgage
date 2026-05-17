@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thank You | Chris Gramly</title>
+  <meta name="theme-color" content="#f6f0e4" />
+  <link rel="icon" href="/ChrisGramlyMortgage/assets/chris-gramly.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;600;700&display=swap" />
+  <style>
+    :root {
+      --paper: #f6f0e4;
+      --ink: #0a1224;
+      --ink-soft: #2d3a52;
+      --brass: #c8a047;
+      --brass-bright: #e6bf5a;
+      --brass-deep: #9a7830;
+      --rule: rgba(10, 18, 36, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 32px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Inter", system-ui, sans-serif;
+    }
+    .card {
+      width: min(620px, 100%);
+      padding: 64px 56px;
+      background: #fff;
+      border: 1px solid var(--rule);
+      box-shadow: 0 24px 60px rgba(10, 18, 36, 0.08);
+    }
+    .tag {
+      display: inline-block;
+      margin-bottom: 28px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--brass-deep);
+    }
+    h1 {
+      margin: 0 0 20px;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(44px, 6vw, 64px);
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--ink);
+    }
+    p {
+      margin: 0 0 14px;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--ink-soft);
+    }
+    strong {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-weight: 500;
+      color: var(--brass-deep);
+    }
+    hr {
+      margin: 32px 0;
+      border: 0;
+      border-top: 1px solid var(--rule);
+    }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    a.btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 16px 24px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: background 220ms ease, color 220ms ease, transform 220ms ease;
+    }
+    a.btn.primary { background: var(--brass); color: #1a1100; }
+    a.btn.primary:hover { background: var(--brass-bright); transform: translateY(-1px); }
+    a.btn.ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+    a.btn.ghost:hover { background: var(--ink); color: var(--paper); }
+    @media (max-width: 520px) {
+      .card { padding: 44px 28px; }
+      .actions { flex-direction: column; }
+      a.btn { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <span class="tag">Received</span>
+    <h1>Thank you.</h1>
+    <p>Your message has been received. Chris Gramly will follow up with you soon to discuss the details of your loan.</p>
+    <p>For faster help, call Chris directly at <strong>(702) 767-4072</strong>.</p>
+    <hr />
+    <div class="actions">
+      <a class="btn primary" href="/ChrisGramlyMortgage/">Back to home</a>
+      <a class="btn ghost" href="tel:+17027674072">Call Chris</a>
+    </div>
+  </main>
+</body>
+</html>

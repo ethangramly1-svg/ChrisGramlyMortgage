@@ -39,37 +39,11 @@ function calculatePayment() {
   paymentValue.textContent = `${formatMoney(payment)}/mo`;
 }
 
-async function sendContactForm(event) {
-  event.preventDefault();
-
+function sendContactForm(event) {
   const form = event.currentTarget;
   const button = form.querySelector("button[type='submit']");
-  const originalText = button.innerHTML;
-
   button.disabled = true;
   button.innerHTML = "Sending...";
-
-  try {
-    const response = await fetch(form.action, {
-      method: "POST",
-      body: new FormData(form),
-      headers: {
-        "Accept": "application/json"
-      }
-    });
-
-    if (response.ok) {
-      window.location.href = "thank-you.html";
-    } else {
-      button.disabled = false;
-      button.innerHTML = originalText;
-      alert("Something went wrong. Please call Chris directly at (702) 767-4072.");
-    }
-  } catch {
-    button.disabled = false;
-    button.innerHTML = originalText;
-    alert("Something went wrong. Please call Chris directly at (702) 767-4072.");
-  }
 }
 
 window.addEventListener("scroll", elevateHeader, { passive: true });

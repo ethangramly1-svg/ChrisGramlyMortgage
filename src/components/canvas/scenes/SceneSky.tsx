@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { easeInOutCubic, getScroll, smoothstep } from "../../../lib/scroll";
 import { sceneSkyLocalProgress } from "../../../lib/pageBounds";
 import { palette } from "../../../lib/palette";
+import VegasLandmarks from "./VegasLandmarks";
 
 const TOWER_URL = `${import.meta.env.BASE_URL}models/tower.glb`;
 useGLTF.preload(TOWER_URL);
@@ -169,11 +170,10 @@ export default function SceneSky() {
       return seed / 233280;
     };
 
-    // Each row mixes "low casino" + "slim hotel" archetypes
+    // Reduced background density so the named landmarks read clearly
     const rows = [
-      { z: -90,  count: 22, lowH: [4, 14],  tallH: [22, 42], spreadX: 230 },
-      { z: -130, count: 16, lowH: [6, 18],  tallH: [28, 56], spreadX: 280 },
-      { z: -180, count: 12, lowH: [10, 22], tallH: [34, 72], spreadX: 340 }
+      { z: -160, count: 14, lowH: [6, 16],  tallH: [22, 42], spreadX: 280 },
+      { z: -200, count: 10, lowH: [10, 22], tallH: [30, 60], spreadX: 360 }
     ];
 
     rows.forEach((row, ri) => {
@@ -213,11 +213,9 @@ export default function SceneSky() {
       }
     });
 
-    // Two signature pyramids — a big front one (Luxor-style) and a
-    // smaller back one so the silhouette reads Vegas at a glance
-    pyramids.push({ x: 18, y: 0, z: -78, base: 28, h: 22 });
-    pyramids.push({ x: -42, y: 0, z: -150, base: 18, h: 14 });
-
+    // Pyramids are no longer used — the named Eiffel Tower in
+    // VegasLandmarks plays the centerpiece role now. Kept empty so the
+    // rest of the code keeps its shape.
     return { buildings, windows, pyramids };
   }, []);
 
@@ -475,9 +473,13 @@ export default function SceneSky() {
         ))}
 
         {/* Real Blender tower — featured property + two flanking */}
-        <HeroTower position={[-3, 0, -85]} scale={0.95} />
-        <HeroTower position={[14, 0, -115]} scale={0.78} opacity={0.95} />
-        <HeroTower position={[-24, 0, -130]} scale={0.65} opacity={0.85} />
+        {/* Distant background luxury towers — slim hotel towers behind */}
+        <HeroTower position={[-46, 0, -160]} scale={0.7} opacity={0.85} />
+        <HeroTower position={[34, 0, -170]} scale={0.65} opacity={0.8} />
+
+        {/* Named Vegas landmarks (Bellagio, Caesars, Eiffel, Paris, balloon,
+            High Roller, mountains, Strip road) */}
+        <VegasLandmarks />
 
         {/* Desert valley floor */}
         <mesh position={[0, -0.5, -150]} rotation={[-Math.PI / 2, 0, 0]} material={desertGroundMat}>

@@ -1,98 +1,134 @@
-import { useEffect, useRef, useState } from "react";
-import { gsap } from "gsap";
+import { useRef } from "react";
+import { gsap, useGSAP, SplitText } from "../../lib/gsap";
 import { subscribeScroll, clamp01 } from "../../lib/scroll";
 import { sceneSkyLocalProgress } from "../../lib/pageBounds";
 
 /**
  * 2D copy overlay for Scene 1.
  *
- * The pre-title and headline are visible *immediately* on page load —
- * no blank screen waiting for the user to scroll. The subline and the
- * scroll cue fade in as the user scrolls, then everything fades out
- * near the end so the next section can take over.
+ * Timeline progress is driven by scroll — scroll up reverses everything.
  *
- * Driven by the shared scroll context, so scrolling up reverses each
- * stage. Hidden entirely once Scene 1 releases.
+ * Timing (local progress 0 → 1):
+ *   0.05 → 0.12 : pre-title slides up
+ *   0.12 → 0.42 : headline chars curtain-reveal (SplitText)
+ *   0.42 → 0.50 : decorative rule draws in from center
+ *   0.50 → 0.62 : subline fades up
+ *   0.62 → 0.72 : CTA button appears
+ *   0.72 → 0.82 : scroll cue appears
+ *   0.90 → 1.00 : everything fades out as scene releases
  */
 export default function HeroOverlay() {
-  const rootRef = useRef<HTMLDivElement | null>(null);
-  const tlRef = useRef<gsap.core.Timeline | null>(null);
-  const [inScene, setInScene] = useState(true);
+  const rootRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return;
+  useGSAP(() => {
+    const root = rootRef.current!;
 
-    const pre = root.querySelector(".hero-pre");
-    const words = root.querySelectorAll(".hero-headline .word");
-    const sub = root.querySelector(".hero-subline");
-    const cue = document.querySelector(".hero-cue");
+    const pre     = root.querySelector<HTMLElement>(".hero-pre");
+    const line1   = root.querySelector<HTMLElement>(".hero-line-1");
+    const line2   = root.querySelector<HTMLElement>(".hero-line-2");
+    const rule    = root.querySelector<HTMLElement>(".hero-rule");
+    const sub     = root.querySelector<HTMLElement>(".hero-subline");
+    const actions = root.querySelector<HTMLElement>(".hero-actions");
+    const cue     = document.querySelector<HTMLElement>(".hero-cue");
 
-    // Set the initial state by hand: pre-title + headline are visible
-    // the moment the page loads. GSAP timeline only handles the *fade
-    // out* near the end so scroll-up still reverses everything.
-    gsap.set(pre, { opacity: 0.7, y: 0 });
-    gsap.set(words, { opacity: 1, y: 0, scale: 1 });
-    gsap.set(sub, { opacity: 0, y: 12 });
-    gsap.set(cue, { opacity: 0 });
+    // Split headline into chars for curtain reveal
+    const split1 = line1 ? new SplitText(line1, { type: "chars" }) : null;
+    const split2 = line2 ? new SplitText(line2, { type: "chars" }) : null;
+    const chars  = [...(split1?.chars ?? []), ...(split2?.chars ?? [])];
 
-    const tl = gsap.timeline({ paused: true, defaults: { ease: "power2.out" } });
+    const tl = gsap.timeline({ paused: true });
 
-    // 0.45 → 0.62: subline fades in
-    tl.to(sub, { opacity: 1, y: 0, duration: 0.17 }, 0.45);
+    // Pre-title
+    tl.fromTo(pre,
+      { opacity: 0, y: 10 },
+      { opacity: 0.65, y: 0, duration: 0.07, ease: "power2.out" },
+      0.05
+    );
 
-    // 0.62 → 0.85: scroll cue fades in
-    tl.to(cue, { opacity: 1, duration: 0.1 }, 0.62);
+    // Headline — chars slide up from below the overflow clip
+    if (chars.length) {
+      tl.fromTo(chars,
+        { yPercent: 110, opacity: 0 },
+        { yPercent: 0, opacity: 1, duration: 0.22, stagger: 0.30 / chars.length, ease: "power3.out" },
+        0.12
+      );
+    }
 
-    // 0.9 → 1.0: everything fades out as the scene releases
-    tl.to([pre, ...Array.from(words), sub, cue].filter(Boolean), {
-      opacity: 0,
-      duration: 0.1,
-      ease: "power1.in"
-    }, 0.90);
+    // Decorative rule — expands from center
+    tl.fromTo(rule,
+      { scaleX: 0 },
+      { scaleX: 1, duration: 0.08, ease: "power2.inOut" },
+      0.42
+    );
 
-    tlRef.current = tl;
+    // Subline
+    tl.fromTo(sub,
+      { opacity: 0, y: 14 },
+      { opacity: 1, y: 0, duration: 0.10, ease: "power2.out" },
+      0.52
+    );
+
+    // CTA
+    tl.fromTo(actions,
+      { opacity: 0, y: 10 },
+      { opacity: 1, y: 0, duration: 0.10, ease: "power2.out" },
+      0.62
+    );
+
+    // Scroll cue
+    if (cue) {
+      tl.fromTo(cue, { opacity: 0 }, { opacity: 1, duration: 0.10 }, 0.72);
+    }
+
+    // Scene-release fade-out
+    const all = [pre, rule, sub, actions, cue, ...chars].filter(Boolean);
+    tl.to(all, { opacity: 0, duration: 0.10, ease: "power1.in" }, 0.90);
 
     const unsub = subscribeScroll(({ scrollY, vh }) => {
-      const local = sceneSkyLocalProgress(scrollY, vh);
-      tl.progress(clamp01(local));
-      setInScene(local < 1);
+      tl.progress(clamp01(sceneSkyLocalProgress(scrollY, vh)));
     });
 
     return () => {
       unsub();
-      tl.kill();
+      split1?.revert();
+      split2?.revert();
     };
-  }, []);
-
-  const hidden: React.CSSProperties = inScene
-    ? {}
-    : { visibility: "hidden", opacity: 0 };
+  }, { scope: rootRef });
 
   return (
     <>
-      <div className="hero-overlay" ref={rootRef} style={hidden} aria-hidden={!inScene}>
+      <div className="hero-overlay" ref={rootRef}>
         <div className="hero-copy">
-          <p className="hero-pre">Clear Modern Mortgage &nbsp;·&nbsp; Las Vegas</p>
+          <p className="hero-pre">Clear Modern Mortgage</p>
+
           <h1 className="hero-headline">
-            <span className="line">
-              <span className="word">Vegas</span>
-              <span className="word">to</span>
-              <span className="word">the</span>
-              <span className="word">valley.</span>
-            </span>
-            <span className="line">
-              <span className="word italic">A</span>
-              <span className="word italic">clear</span>
-              <span className="word italic">path</span>
-              <span className="word italic">home.</span>
-            </span>
+            <span className="hero-line-1">Some homes are bought.</span>
+            <span className="hero-line-2">Others are arrived at.</span>
           </h1>
-          <p className="hero-subline">Chris Gramly — your guide for the journey.</p>
+
+          <div className="hero-rule" aria-hidden="true" />
+
+          <p className="hero-subline">
+            Chris Gramly — your guide for the journey.
+          </p>
+
+          <div className="hero-actions">
+            <a
+              href="https://www.clearmodernmortgage.com/loan-officer/chris-gramly/apply-now"
+              className="btn dark-ghost"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Apply Now
+            </a>
+            <a href="#about" className="hero-learn">
+              Learn More
+            </a>
+          </div>
         </div>
       </div>
 
-      <div className="hero-cue" style={hidden} aria-hidden="true">
+      <div className="hero-cue" aria-hidden="true">
         Scroll to begin
         <span className="arrow">↓</span>
       </div>
